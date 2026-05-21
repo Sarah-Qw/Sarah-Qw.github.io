@@ -29,9 +29,10 @@ export function About() {
             className="lg:col-span-7"
           >
             <h2 className="font-display text-4xl md:text-6xl leading-[1.05] text-balance">
-              {t(
-                <>I read <em className="text-gold">numbers</em> like literature, and write <em className="text-gold">dashboards</em> like poetry.</>,
+              {useApp().lang === "ar" ? (
                 <>أقرأ <em className="text-gold">الأرقام</em> كأنها أدب، وأكتب <em className="text-gold">لوحات البيانات</em> كأنها شِعر.</>
+              ) : (
+                <>I read <em className="text-gold">numbers</em> like literature, and write <em className="text-gold">dashboards</em> like poetry.</>
               )}
             </h2>
             <div className="mt-8 grid sm:grid-cols-2 gap-6 text-foreground/75">
