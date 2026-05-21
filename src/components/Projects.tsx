@@ -1,158 +1,118 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { useApp } from "./AppProvider";
-import { SectionLabel } from "./About";
-import { ArrowUpRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { ArrowUpRight, Github } from "lucide-react";
+import { SectionHeader } from "./SectionLabel";
 
 const projects = [
   {
-    num: "P / 01",
-    en: { title: "Pizza Sales Deep Dive", desc: "Answered 20 strategic questions with SQL and built an animated, executive-grade dashboard in Power BI — surfacing the late-night slice that quietly funded the brand." },
-    ar: { title: "تحليل مبيعات البيتزا", desc: "أجبت عن عشرين سؤالاً استراتيجياً بـ SQL، وبنيت لوحة تنفيذية متحركة في Power BI — كشفت الشريحة الليلية التي مولّت العلامة بهدوء." },
+    slug: "pizza",
+    domain: "Food & Beverage · Restaurant Operations",
+    name: "Pizza Sales Analysis",
+    desc: "Answered 20 business questions using SQL queries on 48K+ records, then built a Power BI dashboard to track revenue, orders, and peak hours.",
     tools: ["SQL", "Power BI", "DAX"],
-    metric: { k: "Revenue uncovered", v: "+18%" },
-    accent: "from-[#3B1F24] to-[#5E556B]",
+    github: "https://github.com/Sarah-Qw/pizza-sales-sql-analysis",
+    cover: { bars: [40, 70, 55, 90, 65, 80], hue: "from-cherry to-gold/40" },
   },
   {
-    num: "P / 02",
-    en: { title: "Retail Data Cleaning & Documentation", desc: "Reconciled three years of malformed dates and unit-price drift with Power Query, then shipped a versioned data dictionary the analytics team actually reads." },
-    ar: { title: "تنظيف وتوثيق بيانات التجزئة", desc: "صحّحت ثلاث سنوات من التواريخ المشوّهة وفروقات الأسعار باستخدام Power Query، ثم أنتجت قاموس بيانات موثّق يقرأه الفريق فعلاً." },
-    tools: ["Power Query", "Excel", "Notion"],
-    metric: { k: "Errors resolved", v: "11,400" },
-    accent: "from-[#B79C6A] to-[#3B1F24]",
+    slug: "jumia",
+    domain: "Retail · E-Commerce",
+    name: "(Jumia) Retail Sales Analysis",
+    desc: "Multi-page Power BI dashboard analyzing $2.3M in sales across 4 years. Resolved Many-to-Many model issues and found that discounts above 30% destroy profitability.",
+    tools: ["Power BI", "Power Query", "DAX", "Data Modeling"],
+    github: "https://github.com/Sarah-Qw/-retail-sales-powerbi-dashboard",
+    cover: { bars: [60, 45, 75, 50, 85, 70], hue: "from-gold to-cherry/40" },
   },
   {
-    num: "P / 03",
-    en: { title: "Customer Behaviour Intelligence", desc: "Segmented 240k customers into nine behavioural archetypes with Python and k-means, then translated each cluster into a campaign brief marketing could ship the same week." },
-    ar: { title: "نظام تحليل سلوك العملاء", desc: "صنّفت 240 ألف عميل في تسعة أنماط سلوكية باستخدام Python و k-means، ثم حوّلت كل عنقود إلى موجز حملة جاهز للتنفيذ." },
-    tools: ["Python", "scikit-learn", "Tableau"],
-    metric: { k: "Conversion lift", v: "+27%" },
-    accent: "from-[#5E556B] to-[#B79C6A]",
-  },
-  {
-    num: "P / 04",
-    en: { title: "Executive KPI Command Center", desc: "Designed a single source of truth that consolidated 14 fragmented reports into one cinematic dashboard the C-suite checks before coffee." },
-    ar: { title: "مركز مؤشرات الأداء التنفيذي", desc: "صمّمت مصدراً موحداً للحقيقة جمع 14 تقريراً متفرقاً في لوحة واحدة سينمائية يفتحها المسؤولون قبل قهوة الصباح." },
-    tools: ["Power BI", "SQL", "Figma"],
-    metric: { k: "Time saved / wk", v: "9 hrs" },
-    accent: "from-[#3B1F24] to-[#B79C6A]",
+    slug: "bosta",
+    domain: "Logistics · Supply Chain",
+    name: "(Bosta) Logistics & Shipping Analysis",
+    desc: "Processed ~1M shipment records from 12 monthly files in Excel. Built a Star Schema with DAX and uncovered a 15% shipping cost gap in southern routes.",
+    tools: ["Excel", "Power Query", "Power Pivot", "DAX"],
+    github: "https://github.com/Sarah-Qw/logistics-operational-analysis",
+    cover: { bars: [30, 55, 40, 60, 75, 90], hue: "from-cherry/70 to-gold" },
   },
 ];
 
 export function Projects() {
-  const { t, playHover } = useApp();
-  const [active, setActive] = useState<number | null>(null);
-
   return (
-    <section id="projects" className="relative py-32 px-6 md:px-10">
+    <section id="projects" className="relative py-24 md:py-32 px-5 md:px-10">
       <div className="max-w-7xl mx-auto">
-        <SectionLabel num="02" en="Selected Work" ar="أعمال مختارة" />
-        <div className="flex items-end justify-between flex-wrap gap-6 mb-16">
-          <h2 className="font-display text-4xl md:text-6xl max-w-2xl leading-tight">
-            {t("Case files from the archive.", "ملفات من الأرشيف.")}
-          </h2>
-          <p className="text-sm text-muted-foreground max-w-sm">
-            {t(
-              "Four selected investigations — each one a question the data refused to answer politely.",
-              "أربع قضايا مختارة — كل واحدة منها سؤال رفضت البيانات الإجابة عليه بأدب."
-            )}
-          </p>
-        </div>
+        <SectionHeader
+          num="03"
+          tag="Selected Work"
+          title="From raw data to real answers"
+          desc="Each project starts with a business question and ends with an insight that's actually useful. Click any project to explore the full story."
+        />
 
-        <div className="space-y-6">
-          {projects.map((p, i) => {
-            const content = p[useApp().lang === "ar" ? "ar" : "en"];
-            const isActive = active === i;
-            return (
-              <motion.article
-                key={p.num}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.7, delay: i * 0.06 }}
-                onMouseEnter={() => {
-                  setActive(i);
-                  playHover();
-                }}
-                onMouseLeave={() => setActive(null)}
-                className="group relative overflow-hidden rounded-3xl border border-border bg-card/40 backdrop-blur-sm metallic-border cursor-pointer"
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {projects.map((p, i) => (
+            <motion.div
+              key={p.slug}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7, delay: i * 0.08 }}
+            >
+              <Link
+                to="/projects/$slug"
+                params={{ slug: p.slug }}
+                className="group block rounded-2xl border border-border bg-card/40 overflow-hidden hover:border-gold/60 hover:shadow-luxury transition-all"
               >
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${p.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-700`}
-                />
-                <div className="absolute inset-0 data-grid-bg opacity-0 group-hover:opacity-30 transition-opacity duration-700" />
-
-                <div className="relative grid md:grid-cols-12 items-center gap-8 p-8 md:p-12">
-                  <div className="md:col-span-2 flex md:flex-col items-center md:items-start gap-3">
-                    <span className="text-[10px] tracking-[0.3em] text-gold">{p.num}</span>
-                    <span className="hidden md:block h-px w-10 bg-gold/60" />
+                {/* Cover */}
+                <div className={`relative h-44 bg-gradient-to-br ${p.cover.hue} overflow-hidden`}>
+                  <div className="absolute inset-0 data-grid-bg opacity-20" />
+                  <div className="absolute inset-0 flex items-end justify-center gap-1.5 p-6">
+                    {p.cover.bars.map((h, idx) => (
+                      <div
+                        key={idx}
+                        style={{ height: `${h}%` }}
+                        className="w-4 rounded-sm bg-ivory/85 group-hover:bg-ivory transition-all duration-700"
+                      />
+                    ))}
                   </div>
-
-                  <div className="md:col-span-6">
-                    <h3 className="font-display text-3xl md:text-5xl leading-tight text-balance group-hover:text-ivory transition-colors duration-500">
-                      {content.title}
-                    </h3>
-                    <p className="mt-4 text-foreground/70 group-hover:text-ivory/80 transition-colors duration-500 max-w-xl">
-                      {content.desc}
-                    </p>
-                    <div className="mt-6 flex flex-wrap gap-2">
-                      {p.tools.map((tt) => (
-                        <span
-                          key={tt}
-                          className="text-[10px] tracking-[0.2em] uppercase px-3 py-1 rounded-full border border-gold/40 text-gold bg-background/40"
-                        >
-                          {tt}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="md:col-span-3">
-                    <ProjectMiniChart active={isActive} index={i} />
-                  </div>
-
-                  <div className="md:col-span-1 flex md:justify-end">
-                    <div className="h-14 w-14 rounded-full border border-gold/60 inline-flex items-center justify-center group-hover:bg-gold group-hover:text-cherry transition-all duration-500">
-                      <ArrowUpRight size={18} className="group-hover:rotate-45 transition-transform duration-500" />
-                    </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-cherry/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-end p-4">
+                    <span className="text-xs tracking-[0.2em] uppercase text-ivory inline-flex items-center gap-1">
+                      View Project <ArrowUpRight size={14} />
+                    </span>
                   </div>
                 </div>
 
-                <div className="relative px-8 md:px-12 pb-6 flex items-center gap-4 text-[10px] tracking-[0.3em] uppercase text-muted-foreground group-hover:text-ivory/70 transition-colors duration-500">
-                  <span>{p.metric.k}</span>
-                  <span className="h-px flex-1 bg-current opacity-30" />
-                  <span className="font-display text-2xl normal-case tracking-normal text-gold">
-                    {p.metric.v}
-                  </span>
+                <div className="p-5">
+                  <div className="text-[10px] tracking-[0.22em] uppercase text-gold mb-2">{p.domain}</div>
+                  <h3 className="font-display text-xl md:text-2xl leading-tight mb-2">{p.name}</h3>
+                  <p className="text-sm text-foreground/70 leading-relaxed mb-4">{p.desc}</p>
+
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {p.tools.map((t) => (
+                      <span
+                        key={t}
+                        className="text-[10px] tracking-wide px-2 py-1 rounded-full border border-gold/30 text-gold/90 bg-background/40"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between pt-3 border-t border-border/60">
+                    <a
+                      href={p.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-gold transition-colors"
+                    >
+                      <Github size={14} /> GitHub
+                    </a>
+                    <span className="h-9 w-9 rounded-full border border-gold/50 inline-flex items-center justify-center group-hover:bg-gold group-hover:text-cherry transition-all">
+                      <ArrowUpRight size={14} />
+                    </span>
+                  </div>
                 </div>
-              </motion.article>
-            );
-          })}
+              </Link>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
-  );
-}
-
-function ProjectMiniChart({ active, index }: { active: boolean; index: number }) {
-  const bars = [
-    [40, 60, 30, 80, 55, 70, 45],
-    [25, 50, 75, 35, 60, 40, 65],
-    [60, 35, 70, 50, 80, 30, 55],
-    [45, 70, 30, 65, 50, 75, 40],
-  ][index];
-  return (
-    <div className="relative h-24 flex items-end gap-1.5 justify-end">
-      {bars.map((h, i) => (
-        <div
-          key={i}
-          style={{
-            height: `${active ? h : h * 0.4}%`,
-            transitionDelay: `${i * 40}ms`,
-          }}
-          className="w-2.5 rounded-sm bg-gold/80 transition-all duration-700"
-        />
-      ))}
-    </div>
   );
 }

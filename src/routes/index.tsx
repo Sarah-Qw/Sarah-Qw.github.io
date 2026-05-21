@@ -1,28 +1,27 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { AppProvider } from "@/components/AppProvider";
-import { CustomCursor } from "@/components/CustomCursor";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
-import { Projects } from "@/components/Projects";
 import { Skills } from "@/components/Skills";
-import { Experience } from "@/components/Experience";
-import { CV } from "@/components/CV";
+import { Projects } from "@/components/Projects";
+import { Certificates } from "@/components/Certificates";
 import { Contact } from "@/components/Contact";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Sarah Quwaidi — Data Analyst Portfolio" },
+      { title: "Sarah Q. - Junior Data Analyst Portfolio" },
       {
         name: "description",
         content:
-          "Portfolio of Sarah Abdulmaleek Quwaidi — a data analyst turning numbers into stories with SQL, Python, and Power BI.",
+          "Data Analyst portfolio of Sarah Abdulmaleek Quwaidi - Excel, Power BI, SQL, Python.",
       },
-      { property: "og:title", content: "Sarah Quwaidi — Data Analyst Portfolio" },
+      { property: "og:title", content: "Sarah Q. - Junior Data Analyst Portfolio" },
       {
         property: "og:description",
-        content: "Turning data into meaning. Selected work, skills, and a downloadable dossier.",
+        content: "Selected work, technical toolkit, certificates and contact.",
       },
     ],
     links: [
@@ -30,7 +29,7 @@ export const Route = createFileRoute("/")({
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap",
       },
     ],
   }),
@@ -38,18 +37,27 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  // Handle hash navigation from other routes
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.location.hash) {
+      const id = window.location.hash.slice(1);
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
+  }, []);
+
   return (
     <AppProvider>
       <div className="relative">
-        <CustomCursor />
         <Navbar />
         <main className="relative z-10">
           <Hero />
           <About />
-          <Projects />
           <Skills />
-          <Experience />
-          <CV />
+          <Projects />
+          <Certificates />
           <Contact />
         </main>
       </div>

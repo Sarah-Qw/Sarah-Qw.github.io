@@ -1,69 +1,154 @@
 import { motion } from "framer-motion";
-import { useApp } from "./AppProvider";
-import { SectionLabel } from "./About";
-import { Mail, Github, Linkedin, Phone, Twitter } from "lucide-react";
+import { useState } from "react";
+import { Mail, Github, Linkedin, Twitter } from "lucide-react";
+import { SectionHeader } from "./SectionLabel";
 
-const channels = [
-  { icon: Mail, label: "Email", value: "Sarah.Q.Data@email.com", href: "mailto:Sarah.Q.Data@email.com" },
-  { icon: Github, label: "GitHub", value: "github.com/SarahQ_Data", href: "#" },
-  { icon: Linkedin, label: "LinkedIn", value: "linkedin.com/in/Sarah-Quwaidi", href: "#" },
-  { icon: Twitter, label: "X", value: "@SarahQ_Data", href: "#" },
-  { icon: Phone, label: "Phone", value: "+966 5• ••• ••••", href: "#" },
+const links = [
+  { icon: Mail, label: "sarah.quwaidi1@gmail.com", href: "mailto:sarah.quwaidi1@gmail.com" },
+  { icon: Linkedin, label: "linkedin.com/in/sarah-quwaidi", href: "https://www.linkedin.com/in/sarah-quwaidi" },
+  { icon: Github, label: "github.com/Sarah-Qw", href: "https://github.com/Sarah-Qw" },
+  { icon: Twitter, label: "@xmisrx on Twitter", href: "https://x.com/xmisrx" },
 ];
 
 export function Contact() {
-  const { t, playHover, playClick } = useApp();
+  const [sent, setSent] = useState(false);
+
   return (
-    <section id="contact" className="relative py-32 px-6 md:px-10">
-      <div className="max-w-6xl mx-auto">
-        <SectionLabel num="06" en="Contact" ar="التواصل" />
-        <div className="text-center max-w-3xl mx-auto">
-          <h2 className="font-display text-5xl md:text-7xl leading-[1.02] text-balance">
-            {t("Let's compare notes.", "لنتبادل الملاحظات.")}
-          </h2>
-          <p className="mt-6 text-foreground/70">
-            {t(
-              "A private terminal. Pick a channel — I'll meet you there with a clean dataset and an open question.",
-              "محطة خاصة. اختر قناتك — سأكون بانتظارك ببياناتٍ نظيفة وسؤالٍ مفتوح."
-            )}
-          </p>
-        </div>
+    <section id="contact" className="relative py-24 md:py-32 px-5 md:px-10">
+      <div className="max-w-7xl mx-auto">
+        <SectionHeader
+          num="05"
+          tag="Contact"
+          title="Run a query. Get a response."
+          desc="Have a dataset that needs clarity? An opportunity to share? Or just want to connect? I'm open to opportunities and conversations."
+        />
 
-        <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {channels.map((c, i) => (
-            <motion.a
-              key={c.label}
-              href={c.href}
-              onMouseEnter={playHover}
-              onClick={playClick}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.06, duration: 0.6 }}
-              className="group relative overflow-hidden rounded-2xl border border-border bg-card/40 p-6 hover:border-gold/60 transition-all"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-gold/0 to-gold/0 group-hover:from-gold/5 group-hover:to-cherry/10 transition-all" />
-              <div className="relative flex items-center gap-4">
-                <span className="h-12 w-12 rounded-full border border-gold/40 flex items-center justify-center group-hover:bg-gold/15 transition-colors">
-                  <c.icon size={18} className="text-gold" />
+        <div className="grid lg:grid-cols-12 gap-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="lg:col-span-5 space-y-6"
+          >
+            <h3 className="font-display text-2xl md:text-3xl">Let's connect</h3>
+            <p className="text-foreground/75 leading-relaxed">
+              I'm open to freelance projects, full-time opportunities, and collaborative data challenges. If your data has a question, I want to help answer it.
+            </p>
+            <div className="space-y-2">
+              {links.map((l) => (
+                <a
+                  key={l.label}
+                  href={l.href}
+                  target={l.href.startsWith("http") ? "_blank" : undefined}
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-3 rounded-xl border border-border bg-card/40 px-4 py-3 hover:border-gold/60 hover:bg-card/60 transition-all"
+                >
+                  <span className="h-9 w-9 rounded-full border border-gold/40 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-cherry transition-colors shrink-0">
+                    <l.icon size={15} />
+                  </span>
+                  <span className="text-sm truncate">{l.label}</span>
+                </a>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="lg:col-span-7"
+          >
+            <div className="rounded-2xl border border-gold/30 bg-card/60 backdrop-blur-xl overflow-hidden shadow-luxury">
+              <div className="flex items-center gap-2 px-4 py-2.5 border-b border-border/60 bg-background/40">
+                <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
+                <span className="ml-3 text-[10px] font-mono tracking-wider text-muted-foreground">
+                  contact_query.sql
                 </span>
-                <div className="min-w-0">
-                  <div className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground">
-                    {c.label}
-                  </div>
-                  <div className="font-display text-lg truncate">{c.value}</div>
-                </div>
               </div>
-            </motion.a>
-          ))}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setSent(true);
+                  setTimeout(() => setSent(false), 3500);
+                }}
+                className="p-6 md:p-7 space-y-5"
+              >
+                <Field label="What's your name?" name="name" placeholder="Your full name" />
+                <Field label="Your email address" name="email" type="email" placeholder="your@email.com" />
+                <div>
+                  <label className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground block mb-2">
+                    Leave a message
+                  </label>
+                  <textarea
+                    required
+                    rows={4}
+                    placeholder="What would you like to say?"
+                    className="w-full rounded-lg border border-border bg-background/60 px-4 py-3 text-sm outline-none focus:border-gold transition-colors resize-none"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="group relative overflow-hidden rounded-full px-6 py-3 bg-cherry text-primary-foreground text-xs tracking-[0.2em] uppercase shadow-luxury inline-flex items-center gap-2"
+                >
+                  <span className="relative z-10">
+                    {sent ? "Query Executed ✓" : "Run Query →"}
+                  </span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-gold/0 via-gold/40 to-gold/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+                </button>
+              </form>
+            </div>
+          </motion.div>
         </div>
 
-        <div className="mt-24 pt-10 border-t border-border flex flex-wrap items-center justify-between gap-4 text-[10px] tracking-[0.3em] uppercase text-muted-foreground">
-          <span>© 2026 · Sarah Quwaidi</span>
-          <span>{t("Composed with care in Riyadh", "صُمّم بعناية في الرياض")}</span>
-          <span className="text-gold">{t("Available for select projects", "متاحة لمشاريع مختارة")}</span>
+        <div className="mt-20 pt-8 border-t border-border flex flex-wrap items-center justify-between gap-3 text-[10px] tracking-[0.3em] uppercase text-muted-foreground">
+          <span>© 2026 Sarah Abdulmaleek Quwaidi · Data Analyst</span>
+          <div className="flex gap-3">
+            {links.map((l) => (
+              <a
+                key={l.label}
+                href={l.href}
+                target={l.href.startsWith("http") ? "_blank" : undefined}
+                rel="noopener noreferrer"
+                className="h-8 w-8 rounded-full border border-border flex items-center justify-center hover:border-gold hover:text-gold transition-colors"
+                aria-label={l.label}
+              >
+                <l.icon size={13} />
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function Field({
+  label,
+  name,
+  type = "text",
+  placeholder,
+}: {
+  label: string;
+  name: string;
+  type?: string;
+  placeholder: string;
+}) {
+  return (
+    <div>
+      <label className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground block mb-2">
+        {label}
+      </label>
+      <input
+        required
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        className="w-full rounded-lg border border-border bg-background/60 px-4 py-3 text-sm outline-none focus:border-gold transition-colors"
+      />
+    </div>
   );
 }
