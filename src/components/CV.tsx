@@ -26,10 +26,11 @@ export function CV() {
                 {t("Classified · Personal Dossier", "ملف شخصي · موثّق")}
               </div>
               <h2 className="font-display text-4xl md:text-6xl leading-[1.05]">
-                {t(
-                  <>The full case file, <em className="text-gold">unredacted</em>.</>,
+                {lang === "ar" ? (
                   <>الملف كاملاً، <em className="text-gold">بلا حذف</em>.</>
-                ) as any}
+                ) : (
+                  <>The full case file, <em className="text-gold">unredacted</em>.</>
+                )}
               </h2>
               <p className="mt-6 text-foreground/70 max-w-md">
                 {t(
