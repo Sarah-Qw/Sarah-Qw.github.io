@@ -8,6 +8,7 @@ import { Skills } from "@/components/Skills";
 import { Projects } from "@/components/Projects";
 import { Certificates } from "@/components/Certificates";
 import { Contact } from "@/components/Contact";
+import { BackToTop } from "@/components/BackToTop";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -29,7 +30,7 @@ export const Route = createFileRoute("/")({
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap",
       },
     ],
   }),
@@ -37,7 +38,6 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  // Handle hash navigation from other routes
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (window.location.hash) {
@@ -60,6 +60,7 @@ function Index() {
           <Certificates />
           <Contact />
         </main>
+        <BackToTop />
       </div>
     </AppProvider>
   );

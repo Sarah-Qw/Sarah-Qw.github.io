@@ -25,7 +25,7 @@ export function About() {
         <SectionHeader
           num="01"
           tag="About Me"
-          title="The Analyst behind the dashboards"
+          title="The Analyst Behind The Dashboards"
           desc="Get to know the person who turns questions into queries and data into decisions."
         />
 
