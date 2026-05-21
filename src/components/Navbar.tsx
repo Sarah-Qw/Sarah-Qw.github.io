@@ -42,14 +42,8 @@ export function Navbar() {
         }`}
       >
         <Link to="/" className="flex items-center gap-2.5 group shrink-0">
-          <span className="relative inline-flex h-9 items-end gap-[2px] px-1">
-            {[8, 14, 10, 18, 12].map((h, i) => (
-              <span
-                key={i}
-                style={{ height: `${h}px` }}
-                className="w-[3px] bg-gold rounded-sm group-hover:translate-y-[-1px] transition-transform"
-              />
-            ))}
+          <span className="relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-gold/60 bg-card/40 backdrop-blur metallic-border group-hover:border-gold transition-colors">
+            <span className="font-display text-base text-gold font-semibold leading-none">S</span>
           </span>
           <span className="font-display tracking-wide text-base md:text-lg">
             Sarah <span className="text-gold">Q.</span>
@@ -86,7 +80,6 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu */}
       {open && (
         <div className="lg:hidden mx-4 mt-3 glass metallic-border rounded-2xl p-4 flex flex-col gap-1">
           {NAV.map((n) => (
