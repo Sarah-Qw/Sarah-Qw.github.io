@@ -37,7 +37,7 @@ export function Skills() {
         <SectionHeader
           num="02"
           tag="Technical Toolkit"
-          title="The tools that do the heavy lifting"
+          title="The Tools That Do The Heavy Lifting"
           desc="A look at the technical stack I use to clean, model, query, and visualize data from raw files to polished reports."
         />
 

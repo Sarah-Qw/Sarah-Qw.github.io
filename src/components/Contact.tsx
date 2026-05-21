@@ -12,14 +12,18 @@ const links = [
 
 export function Contact() {
   const [sent, setSent] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+
+  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm((f) => ({ ...f, [k]: e.target.value }));
 
   return (
-    <section id="contact" className="relative py-24 md:py-32 px-5 md:px-10">
+    <section id="contact" className="relative pt-24 md:pt-32 pb-10 px-5 md:px-10">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
           num="05"
           tag="Contact"
-          title="Run a query. Get a response."
+          title="Run A Query. Get A Response."
           desc="Have a dataset that needs clarity? An opportunity to share? Or just want to connect? I'm open to opportunities and conversations."
         />
 
@@ -31,7 +35,7 @@ export function Contact() {
             transition={{ duration: 0.7 }}
             className="lg:col-span-5 space-y-6"
           >
-            <h3 className="font-display text-2xl md:text-3xl">Let's connect</h3>
+            <h3 className="font-display text-2xl md:text-3xl">Let's Connect</h3>
             <p className="text-foreground/75 leading-relaxed">
               I'm open to freelance projects, full-time opportunities, and collaborative data challenges. If your data has a question, I want to help answer it.
             </p>
@@ -53,6 +57,7 @@ export function Contact() {
             </div>
           </motion.div>
 
+          {/* SQL-style contact form — same fiber as the Toolkit cards */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -60,7 +65,7 @@ export function Contact() {
             transition={{ duration: 0.7, delay: 0.15 }}
             className="lg:col-span-7"
           >
-            <div className="rounded-2xl border border-gold/30 bg-card/60 backdrop-blur-xl overflow-hidden shadow-luxury">
+            <div className="rounded-2xl border border-gold/30 bg-card/60 backdrop-blur-xl overflow-hidden shadow-luxury metallic-border">
               <div className="flex items-center gap-2 px-4 py-2.5 border-b border-border/60 bg-background/40">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]" />
                 <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]" />
@@ -68,44 +73,79 @@ export function Contact() {
                 <span className="ml-3 text-[10px] font-mono tracking-wider text-muted-foreground">
                   contact_query.sql
                 </span>
+                <span className="ml-auto text-[9px] tracking-[0.25em] uppercase text-gold/80">
+                  Editor
+                </span>
               </div>
+
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
                   setSent(true);
                   setTimeout(() => setSent(false), 3500);
                 }}
-                className="p-6 md:p-7 space-y-5"
+                className="p-5 md:p-6 font-mono text-[13px] leading-relaxed"
               >
-                <Field label="What's your name?" name="name" placeholder="Your full name" />
-                <Field label="Your email address" name="email" type="email" placeholder="your@email.com" />
-                <div>
-                  <label className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground block mb-2">
-                    Leave a message
-                  </label>
-                  <textarea
-                    required
-                    rows={4}
-                    placeholder="What would you like to say?"
-                    className="w-full rounded-lg border border-border bg-background/60 px-4 py-3 text-sm outline-none focus:border-gold transition-colors resize-none"
-                  />
+                {/* Gutter + lines layout */}
+                <div className="grid grid-cols-[2rem_1fr] gap-x-3 gap-y-1">
+                  <Ln n={1}>
+                    <span className="text-muted-foreground">{"-- Fill in the parameters to initiate contact"}</span>
+                  </Ln>
+                  <Ln n={2}> </Ln>
+
+                  <Ln n={3}>
+                    <span className="text-gold">INSERT INTO</span>{" "}
+                    <span className="text-foreground">messages</span>{" "}
+                    (<span className="text-cherry-soft dark:text-cherry">sender_name</span>)
+                  </Ln>
+                  <Ln n={4}>
+                    <SqlInput value={form.name} onChange={set("name")} placeholder="'Your Name'" />
+                  </Ln>
+
+                  <Ln n={5}>
+                    <span className="text-gold">VALUES</span>{" "}
+                    (<span className="text-cherry-soft dark:text-cherry">email_address</span>)
+                  </Ln>
+                  <Ln n={6}>
+                    <SqlInput value={form.email} type="email" onChange={set("email")} placeholder="'your@email.com'" />
+                  </Ln>
+
+                  <Ln n={7}>
+                    <span className="text-gold">SET</span>{" "}
+                    <span className="text-cherry-soft dark:text-cherry">subject</span> =
+                  </Ln>
+                  <Ln n={8}>
+                    <SqlInput value={form.subject} onChange={set("subject")} placeholder="'Subject of your message'" />
+                  </Ln>
+
+                  <Ln n={9}>
+                    <span className="text-gold">WHERE</span>{" "}
+                    <span className="text-cherry-soft dark:text-cherry">message</span> =
+                  </Ln>
+                  <Ln n={10}>
+                    <SqlTextarea value={form.message} onChange={set("message")} placeholder="'Write your message here...'" />
+                  </Ln>
                 </div>
-                <button
-                  type="submit"
-                  className="group relative overflow-hidden rounded-full px-6 py-3 bg-cherry text-primary-foreground text-xs tracking-[0.2em] uppercase shadow-luxury inline-flex items-center gap-2"
-                >
-                  <span className="relative z-10">
-                    {sent ? "Query Executed ✓" : "Run Query →"}
-                  </span>
-                  <span className="absolute inset-0 bg-gradient-to-r from-gold/0 via-gold/40 to-gold/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-                </button>
+
+                <div className="mt-6 flex justify-end">
+                  <button
+                    type="submit"
+                    className="btn-press group relative overflow-hidden rounded-full px-6 py-3 bg-cherry text-primary-foreground text-xs tracking-[0.2em] uppercase shadow-luxury inline-flex items-center gap-2"
+                  >
+                    <span className="relative z-10">
+                      {sent ? "Query Executed ✓" : "Run Query →"}
+                    </span>
+                    <span className="absolute inset-0 bg-gradient-to-r from-gold/0 via-gold/40 to-gold/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+                  </button>
+                </div>
               </form>
             </div>
           </motion.div>
         </div>
 
-        <div className="mt-20 pt-8 border-t border-border flex flex-wrap items-center justify-between gap-3 text-[10px] tracking-[0.3em] uppercase text-muted-foreground">
-          <span>© 2026 Sarah Abdulmaleek Quwaidi · Data Analyst</span>
+        {/* Footer */}
+        <div className="mt-14 pt-6 border-t border-border flex flex-col items-center gap-4 text-[10px] tracking-[0.3em] uppercase text-muted-foreground">
+          <span className="text-center">© 2026 Sarah Abdulmaleek Quwaidi · Data Analyst</span>
           <div className="flex gap-3">
             {links.map((l) => (
               <a
@@ -113,10 +153,10 @@ export function Contact() {
                 href={l.href}
                 target={l.href.startsWith("http") ? "_blank" : undefined}
                 rel="noopener noreferrer"
-                className="h-8 w-8 rounded-full border border-border flex items-center justify-center hover:border-gold hover:text-gold transition-colors"
+                className="h-9 w-9 rounded-full border border-border flex items-center justify-center hover:border-gold hover:text-gold transition-colors"
                 aria-label={l.label}
               >
-                <l.icon size={13} />
+                <l.icon size={14} />
               </a>
             ))}
           </div>
@@ -126,29 +166,57 @@ export function Contact() {
   );
 }
 
-function Field({
-  label,
-  name,
+function Ln({ n, children }: { n: number; children: React.ReactNode }) {
+  return (
+    <>
+      <span className="text-right text-muted-foreground/50 select-none pr-2 border-r border-border/40 text-[11px] leading-7">
+        {n}
+      </span>
+      <div className="min-h-[1.75rem] flex items-center flex-wrap gap-x-1">{children}</div>
+    </>
+  );
+}
+
+function SqlInput({
+  value,
+  onChange,
+  placeholder,
   type = "text",
+}: {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder: string;
+  type?: string;
+}) {
+  return (
+    <input
+      required
+      type={type}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      className="ml-4 flex-1 min-w-[200px] bg-transparent border-b border-dashed border-border focus:border-gold outline-none px-1 py-0.5 text-foreground placeholder:text-muted-foreground/60 transition-colors"
+    />
+  );
+}
+
+function SqlTextarea({
+  value,
+  onChange,
   placeholder,
 }: {
-  label: string;
-  name: string;
-  type?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   placeholder: string;
 }) {
   return (
-    <div>
-      <label className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground block mb-2">
-        {label}
-      </label>
-      <input
-        required
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        className="w-full rounded-lg border border-border bg-background/60 px-4 py-3 text-sm outline-none focus:border-gold transition-colors"
-      />
-    </div>
+    <textarea
+      required
+      rows={3}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      className="ml-4 flex-1 min-w-[200px] bg-transparent border-b border-dashed border-border focus:border-gold outline-none px-1 py-0.5 text-foreground placeholder:text-muted-foreground/60 resize-none transition-colors"
+    />
   );
 }

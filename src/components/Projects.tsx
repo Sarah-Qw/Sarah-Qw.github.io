@@ -2,6 +2,9 @@ import { motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Github } from "lucide-react";
 import { SectionHeader } from "./SectionLabel";
+import pizzaImg from "@/assets/project-pizza.png";
+import jumiaImg from "@/assets/project-jumia.png";
+import bostaImg from "@/assets/project-bosta.png";
 
 const projects = [
   {
@@ -11,7 +14,7 @@ const projects = [
     desc: "Answered 20 business questions using SQL queries on 48K+ records, then built a Power BI dashboard to track revenue, orders, and peak hours.",
     tools: ["SQL", "Power BI", "DAX"],
     github: "https://github.com/Sarah-Qw/pizza-sales-sql-analysis",
-    cover: { bars: [40, 70, 55, 90, 65, 80], hue: "from-cherry to-gold/40" },
+    image: pizzaImg,
   },
   {
     slug: "jumia",
@@ -20,7 +23,7 @@ const projects = [
     desc: "Multi-page Power BI dashboard analyzing $2.3M in sales across 4 years. Resolved Many-to-Many model issues and found that discounts above 30% destroy profitability.",
     tools: ["Power BI", "Power Query", "DAX", "Data Modeling"],
     github: "https://github.com/Sarah-Qw/-retail-sales-powerbi-dashboard",
-    cover: { bars: [60, 45, 75, 50, 85, 70], hue: "from-gold to-cherry/40" },
+    image: jumiaImg,
   },
   {
     slug: "bosta",
@@ -29,7 +32,7 @@ const projects = [
     desc: "Processed ~1M shipment records from 12 monthly files in Excel. Built a Star Schema with DAX and uncovered a 15% shipping cost gap in southern routes.",
     tools: ["Excel", "Power Query", "Power Pivot", "DAX"],
     github: "https://github.com/Sarah-Qw/logistics-operational-analysis",
-    cover: { bars: [30, 55, 40, 60, 75, 90], hue: "from-cherry/70 to-gold" },
+    image: bostaImg,
   },
 ];
 
@@ -40,11 +43,11 @@ export function Projects() {
         <SectionHeader
           num="03"
           tag="Selected Work"
-          title="From raw data to real answers"
+          title="From Raw Data To Real Answers"
           desc="Each project starts with a business question and ends with an insight that's actually useful. Click any project to explore the full story."
         />
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
           {projects.map((p, i) => (
             <motion.div
               key={p.slug}
@@ -52,32 +55,28 @@ export function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.7, delay: i * 0.08 }}
+              className="h-full"
             >
               <Link
                 to="/projects/$slug"
                 params={{ slug: p.slug }}
-                className="group block rounded-2xl border border-border bg-card/40 overflow-hidden hover:border-gold/60 hover:shadow-luxury transition-all"
+                className="group flex flex-col h-full rounded-2xl border border-border bg-card/40 overflow-hidden hover:border-gold/60 hover:shadow-luxury transition-all"
               >
-                {/* Cover */}
-                <div className={`relative h-44 bg-gradient-to-br ${p.cover.hue} overflow-hidden`}>
-                  <div className="absolute inset-0 data-grid-bg opacity-20" />
-                  <div className="absolute inset-0 flex items-end justify-center gap-1.5 p-6">
-                    {p.cover.bars.map((h, idx) => (
-                      <div
-                        key={idx}
-                        style={{ height: `${h}%` }}
-                        className="w-4 rounded-sm bg-ivory/85 group-hover:bg-ivory transition-all duration-700"
-                      />
-                    ))}
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-cherry/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-end p-4">
+                <div className="relative h-48 bg-card overflow-hidden">
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-cherry/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-end p-4">
                     <span className="text-xs tracking-[0.2em] uppercase text-ivory inline-flex items-center gap-1">
                       View Project <ArrowUpRight size={14} />
                     </span>
                   </div>
                 </div>
 
-                <div className="p-5">
+                <div className="flex flex-col flex-1 p-5">
                   <div className="text-[10px] tracking-[0.22em] uppercase text-gold mb-2">{p.domain}</div>
                   <h3 className="font-display text-xl md:text-2xl leading-tight mb-2">{p.name}</h3>
                   <p className="text-sm text-foreground/70 leading-relaxed mb-4">{p.desc}</p>
@@ -93,7 +92,7 @@ export function Projects() {
                     ))}
                   </div>
 
-                  <div className="flex items-center justify-between pt-3 border-t border-border/60">
+                  <div className="mt-auto flex items-center justify-between pt-3 border-t border-border/60">
                     <a
                       href={p.github}
                       target="_blank"

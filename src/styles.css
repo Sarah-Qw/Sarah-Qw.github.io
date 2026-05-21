@@ -7,6 +7,7 @@
 @theme inline {
   --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
   --font-sans: "Inter", system-ui, sans-serif;
+  --font-numeric: "Space Grotesk", "Inter", system-ui, sans-serif;
   --font-arabic: "Noto Naskh Arabic", "Amiri", serif;
 
   --radius-sm: calc(var(--radius) - 4px);
@@ -50,10 +51,11 @@
   /* Luxury palette - light */
   --ivory: oklch(0.972 0.008 80);              /* #F8F6F2 */
   --stone-soft: oklch(0.86 0.012 75);          /* #D8D2C8 */
-  --cherry: oklch(0.27 0.06 20);               /* #3B1F24 deep cherry brown */
-  --plum: oklch(0.43 0.04 300);                /* #5E556B smoky plum */
-  --graphite: oklch(0.27 0.005 280);           /* #2C2B30 */
-  --gold: oklch(0.72 0.08 80);                 /* #B79C6A champagne gold */
+  --cherry: oklch(0.40 0.11 22);               /* softened burgundy - more readable */
+  --cherry-soft: oklch(0.55 0.13 24);          /* lighter shimmer accent for name */
+  --plum: oklch(0.43 0.04 300);
+  --graphite: oklch(0.27 0.005 280);
+  --gold: oklch(0.72 0.08 80);
   --gold-soft: oklch(0.82 0.06 82);
 
   --background: var(--ivory);
@@ -87,7 +89,8 @@
 .dark {
   --ivory: oklch(0.16 0.008 60);
   --stone-soft: oklch(0.28 0.01 60);
-  --cherry: oklch(0.35 0.09 22);
+  --cherry: oklch(0.58 0.15 24);               /* much brighter burgundy for dark mode */
+  --cherry-soft: oklch(0.68 0.14 25);
   --plum: oklch(0.58 0.06 300);
   --graphite: oklch(0.94 0.008 80);
   --gold: oklch(0.78 0.1 82);
@@ -161,7 +164,10 @@
 @layer utilities {
   .font-display { font-family: var(--font-display); }
   .font-arabic { font-family: var(--font-arabic); }
+  .font-numeric { font-family: var(--font-numeric); font-feature-settings: "tnum","ss01"; letter-spacing: -0.01em; }
   .text-gold { color: var(--gold); }
+  .text-cherry { color: var(--cherry); }
+  .text-cherry-soft { color: var(--cherry-soft); }
   .bg-ivory { background-color: var(--ivory); }
   .bg-cherry { background-color: var(--cherry); }
   .bg-graphite { background-color: var(--graphite); }
@@ -170,6 +176,10 @@
   .gradient-cherry { background: var(--gradient-cherry); }
   .shadow-luxury { box-shadow: var(--shadow-luxury); }
   .shadow-gold-glow { box-shadow: var(--shadow-gold); }
+
+  .btn-press { transition: transform .25s ease, box-shadow .25s ease, filter .25s ease; }
+  .btn-press:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 14px 40px -10px color-mix(in oklab, var(--cherry) 45%, transparent); filter: brightness(1.05); }
+  .btn-press:active { transform: translateY(0) scale(0.98); }
 
   .glass {
     background: color-mix(in oklab, var(--card) 60%, transparent);
@@ -222,14 +232,24 @@
   }
   .shimmer-text {
     background: linear-gradient(90deg,
-      var(--graphite) 0%, var(--graphite) 40%,
+      var(--cherry-soft) 0%, var(--cherry-soft) 40%,
       var(--gold) 50%,
-      var(--graphite) 60%, var(--graphite) 100%);
+      var(--cherry-soft) 60%, var(--cherry-soft) 100%);
     background-size: 200% 100%;
     -webkit-background-clip: text;
             background-clip: text;
     color: transparent;
     animation: shimmer 6s linear infinite;
+  }
+  .dark .shimmer-text {
+    background: linear-gradient(90deg,
+      var(--gold) 0%, var(--gold) 40%,
+      #fff6dd 50%,
+      var(--gold) 60%, var(--gold) 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
   }
 
   @keyframes float-y {
