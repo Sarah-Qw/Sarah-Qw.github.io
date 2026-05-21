@@ -32,7 +32,7 @@ export const Route = createFileRoute("/projects/$slug")({
 });
 
 function ProjectPage() {
-  const { project: p } = Route.useLoaderData();
+  const { project: p } = Route.useLoaderData() as { project: typeof PROJECTS[string] };
 
   return (
     <AppProvider>
