@@ -232,14 +232,24 @@
   }
   .shimmer-text {
     background: linear-gradient(90deg,
-      var(--graphite) 0%, var(--graphite) 40%,
+      var(--cherry-soft) 0%, var(--cherry-soft) 40%,
       var(--gold) 50%,
-      var(--graphite) 60%, var(--graphite) 100%);
+      var(--cherry-soft) 60%, var(--cherry-soft) 100%);
     background-size: 200% 100%;
     -webkit-background-clip: text;
             background-clip: text;
     color: transparent;
     animation: shimmer 6s linear infinite;
+  }
+  .dark .shimmer-text {
+    background: linear-gradient(90deg,
+      var(--gold) 0%, var(--gold) 40%,
+      #fff6dd 50%,
+      var(--gold) 60%, var(--gold) 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
   }
 
   @keyframes float-y {
