@@ -4,7 +4,7 @@ import { SectionLabel } from "./About";
 import { Download, FileText } from "lucide-react";
 
 export function CV() {
-  const { t, playClick } = useApp();
+  const { t, lang, playClick } = useApp();
   return (
     <section id="cv" className="relative py-32 px-6 md:px-10">
       <div className="max-w-5xl mx-auto">
