@@ -154,6 +154,18 @@ export function Contact() {
                   </button>
                 </div>
               </form>
+
+              {/* IDE status bar */}
+              <div className="flex items-center justify-between px-4 py-1.5 bg-background/70 border-t border-border/70 text-[9px] font-mono tracking-wider text-muted-foreground uppercase">
+                <div className="flex items-center gap-3">
+                  <span className="text-gold">main</span>
+                  <span>Ln 10, Col 1</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span>Spaces: 2</span>
+                  <span>LF</span>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
