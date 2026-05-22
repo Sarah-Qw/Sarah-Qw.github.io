@@ -4,6 +4,15 @@ import { ArrowLeft, Github } from "lucide-react";
 import { AppProvider } from "@/components/AppProvider";
 import { Navbar } from "@/components/Navbar";
 import { PROJECTS } from "@/data/projects";
+import pizzaImg from "@/assets/project-pizza.png";
+import jumiaImg from "@/assets/project-jumia.png";
+import bostaImg from "@/assets/project-bosta.png";
+
+const COVERS: Record<string, string> = {
+  pizza: pizzaImg,
+  jumia: jumiaImg,
+  bosta: bostaImg,
+};
 
 export const Route = createFileRoute("/projects/$slug")({
   loader: ({ params }) => {
