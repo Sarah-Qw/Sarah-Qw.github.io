@@ -60,20 +60,15 @@ export function Projects() {
               <Link
                 to="/projects/$slug"
                 params={{ slug: p.slug }}
-                className="group flex flex-col h-full rounded-2xl border border-border bg-card/40 overflow-hidden hover:border-gold/60 hover:shadow-luxury transition-all"
+                className="card-soft group flex flex-col h-full rounded-2xl border border-border bg-card/40 overflow-hidden"
               >
                 <div className="relative h-48 bg-card overflow-hidden">
                   <img
                     src={p.image}
                     alt={p.name}
                     loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-cherry/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-end p-4">
-                    <span className="text-xs tracking-[0.2em] uppercase text-ivory inline-flex items-center gap-1">
-                      View Project <ArrowUpRight size={14} />
-                    </span>
-                  </div>
                 </div>
 
                 <div className="flex flex-col flex-1 p-5">
@@ -102,7 +97,7 @@ export function Projects() {
                     >
                       <Github size={14} /> GitHub
                     </a>
-                    <span className="h-9 w-9 rounded-full border border-gold/50 inline-flex items-center justify-center group-hover:bg-gold group-hover:text-cherry transition-all">
+                    <span className="h-9 w-9 rounded-full border border-gold/50 inline-flex items-center justify-center transition-colors">
                       <ArrowUpRight size={14} />
                     </span>
                   </div>

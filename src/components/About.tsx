@@ -67,9 +67,9 @@ export function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.6, delay: i * 0.08 }}
-                className="group rounded-2xl border border-border bg-card/40 p-5 hover:border-gold/60 hover:bg-card/60 transition-all"
+                className="card-soft group rounded-2xl border border-border bg-card/40 p-5"
               >
-                <div className="h-10 w-10 rounded-xl bg-gold/15 text-gold inline-flex items-center justify-center mb-3 group-hover:bg-gold group-hover:text-cherry transition-colors">
+                <div className="icon-wrap h-10 w-10 rounded-xl bg-gold/15 text-gold inline-flex items-center justify-center mb-3">
                   <c.icon size={18} />
                 </div>
                 <h4 className="font-display text-lg mb-1">{c.title}</h4>
