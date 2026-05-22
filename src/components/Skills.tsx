@@ -49,10 +49,10 @@ export function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.6, delay: i * 0.06 }}
-              className="group rounded-2xl border border-border bg-card/40 p-6 hover:border-gold/60 transition-all"
+              className="card-soft group rounded-2xl border border-border bg-card/40 p-6"
             >
               <div className="flex items-center gap-3 mb-4">
-                <div className="h-10 w-10 rounded-xl bg-gold/15 text-gold inline-flex items-center justify-center group-hover:bg-gold group-hover:text-cherry transition-colors">
+                <div className="icon-wrap h-10 w-10 rounded-xl bg-gold/15 text-gold inline-flex items-center justify-center">
                   <g.icon size={18} />
                 </div>
                 <h3 className="font-display text-lg">{g.title}</h3>
