@@ -7,7 +7,7 @@
 @theme inline {
   --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
   --font-sans: "Inter", system-ui, sans-serif;
-  --font-numeric: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-numeric: "Cormorant Garamond", "Fraunces", Georgia, serif;
   --font-arabic: "Noto Naskh Arabic", "Amiri", serif;
 
   --radius-sm: calc(var(--radius) - 4px);
@@ -51,7 +51,7 @@
   /* Luxury palette - light */
   --ivory: oklch(0.972 0.008 80);              /* #F8F6F2 */
   --stone-soft: oklch(0.86 0.012 75);          /* #D8D2C8 */
-  --cherry: oklch(0.40 0.11 22);               /* softened burgundy - more readable */
+  --cherry: #78292c;                            /* exact burgundy spec */
   --cherry-soft: oklch(0.55 0.13 24);          /* lighter shimmer accent for name */
   --plum: oklch(0.43 0.04 300);
   --graphite: oklch(0.27 0.005 280);
@@ -89,7 +89,7 @@
 .dark {
   --ivory: oklch(0.16 0.008 60);
   --stone-soft: oklch(0.28 0.01 60);
-  --cherry: oklch(0.58 0.15 24);               /* much brighter burgundy for dark mode */
+  --cherry: #78292c;                            /* same burgundy in dark mode */
   --cherry-soft: oklch(0.68 0.14 25);
   --plum: oklch(0.58 0.06 300);
   --graphite: oklch(0.94 0.008 80);
