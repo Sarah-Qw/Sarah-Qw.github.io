@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowDown, Mail, LayoutGrid } from "lucide-react";
+import { EtlVisualization } from "./EtlVisualization";
 
 export function Hero() {
   return (
@@ -18,7 +19,7 @@ export function Hero() {
             Hello, I'm
           </motion.p>
 
-          <h1 className="font-display text-[clamp(2.6rem,8vw,6.5rem)] leading-[0.98] tracking-tight">
+          <h1 className="font-display font-medium text-[clamp(3.4rem,11vw,9rem)] leading-[0.92] tracking-[-0.02em]">
             <motion.span
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -31,7 +32,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.35 }}
-              className="block text-cherry-soft dark:text-gold"
+              className="block shimmer-text"
             >
               Quwaidi.
             </motion.span>
@@ -60,7 +61,7 @@ export function Hero() {
             transition={{ delay: 0.85, duration: 0.7 }}
             className="mt-6 text-base md:text-lg text-foreground/80 max-w-xl text-balance leading-relaxed"
           >
-            Turning data into meaning - quiet patterns, loud insights, and the stories that live between the rows.
+            Turning data into meaning, quiet patterns, loud insights, and the stories that live between the rows.
           </motion.p>
 
           <motion.div
@@ -107,9 +108,9 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Creative Data Constellation */}
+        {/* Interactive ETL data visualization */}
         <div className="lg:col-span-5 relative w-full">
-          <DataConstellation />
+          <EtlVisualization />
         </div>
       </div>
 
