@@ -48,7 +48,7 @@
 :root {
   --radius: 0.5rem;
 
-  /* Luxury palette - light */
+  /* هويتك في الوضع الفاتح: الأوف وايت بطل المساحات، البرغندي بطل العناصر، والذهبي للمسات */
   --ivory: oklch(0.972 0.008 80);             /* #F8F6F2 */
   --stone-soft: oklch(0.86 0.012 75);         /* #D8D2C8 */
   --cherry: #78292c;                          /* exact burgundy spec */
@@ -65,21 +65,23 @@
   --popover: var(--card);
   --popover-foreground: var(--graphite);
   
-  /* Primary buttons in Light Mode (Burgundy with Ivory text) */
-  --primary: var(--cherry);
-  --primary-foreground: var(--ivory);
+  /* التركيز على البرغندي في الفاتح */
+  --primary: var(--cherry);                   /* العناوين والروابط النشطة تصير برغندي */
+  --primary-foreground: var(--ivory);         /* النصوص اللي فوق البرغندي تصير أوف وايت */
   
   --secondary: var(--stone-soft);
   --secondary-foreground: var(--graphite);
   --muted: oklch(0.92 0.008 80);
   --muted-foreground: oklch(0.45 0.015 280);
-  --accent: var(--gold);
+  
+  --accent: var(--gold);                      /* اللمسات ذهبية */
   --accent-foreground: var(--graphite);
+  
   --destructive: oklch(0.55 0.18 25);
   --destructive-foreground: var(--ivory);
   --border: oklch(0.85 0.012 80);
   --input: oklch(0.88 0.01 80);
-  --ring: var(--gold);
+  --ring: var(--cherry);                      /* تحديد العناصر يصير بالبرغندي */
 
   --gradient-luxury: linear-gradient(135deg, oklch(0.72 0.08 80) 0%, oklch(0.55 0.05 30) 100%);
   --gradient-cherry: linear-gradient(180deg, oklch(0.27 0.06 20) 0%, oklch(0.18 0.04 20) 100%);
@@ -90,37 +92,41 @@
 }
 
 .dark {
+  /* هويتك في الوضع الداكن: الأسود للخلفية، الذهبي/الأبيض للنصوص، والبرغندي مقتصر على خلفيات الأزرار واللمسات */
   --ivory: oklch(0.16 0.008 60);
   --stone-soft: oklch(0.28 0.01 60);
-  --cherry: #78292c;                          /* same burgundy in dark mode */
-  --cherry-soft: oklch(0.68 0.14 25);
+  --cherry: #78292c;                          /* البرغندي (يُستخدم كخلفية للأزرار فقط) */
+  --cherry-soft: oklch(0.68 0.14 25);         /* برغندي فاتح جداً */
   --plum: oklch(0.58 0.06 300);
-  --graphite: oklch(0.94 0.008 80);
-  --gold: oklch(0.78 0.1 82);
+  --graphite: oklch(0.94 0.008 80);           /* نصوص فاتحة جداً للقراءة */
+  --gold: oklch(0.78 0.1 82);                 /* الذهبي هنا هو البطل */
   --gold-soft: oklch(0.7 0.08 82);
 
-  --background: oklch(0.14 0.008 60);
-  --foreground: oklch(0.94 0.008 80);
-  --card: oklch(0.18 0.01 60);
+  --background: oklch(0.12 0.005 280);        /* أسود فخم */
+  --foreground: oklch(0.94 0.008 80);         /* أبيض/رمادي فاتح للنصوص العادية */
+  --card: oklch(0.16 0.005 280);
   --card-foreground: oklch(0.94 0.008 80);
   --popover: var(--card);
   --popover-foreground: oklch(0.94 0.008 80);
   
-  /* Primary buttons in Dark Mode (Burgundy with Bright White/Ivory text) */
-  --primary: var(--cherry);
-  --primary-foreground: oklch(0.98 0.008 80); 
+  /* إصلاح مشكلة التباين: الروابط الأساسية والعناوين تصير ذهبي عشان توضح */
+  --primary: var(--gold);                     /* الروابط النشطة بتصير ذهبي واضح */
+  --primary-foreground: oklch(0.12 0.005 280);
   
   --secondary: oklch(0.24 0.012 60);
   --secondary-foreground: oklch(0.94 0.008 80);
   --muted: oklch(0.22 0.01 60);
-  --muted-foreground: oklch(0.68 0.01 80);
-  --accent: var(--gold);
-  --accent-foreground: oklch(0.14 0.008 60);
+  --muted-foreground: oklch(0.7 0.01 80);
+  
+  /* اللمسات البرغندية في الوضع الداكن */
+  --accent: var(--cherry);                    /* لو فيه كروت مميزة تاخذ خلفية برغندية */
+  --accent-foreground: oklch(0.98 0.008 80);  /* النص فوقها أبيض ساطع */
+  
   --destructive: oklch(0.55 0.18 25);
   --destructive-foreground: var(--ivory);
-  --border: oklch(0.28 0.012 60);
-  --input: oklch(0.24 0.012 60);
-  --ring: var(--gold);
+  --border: color-mix(in oklab, var(--gold) 20%, transparent); /* حدود ذهبية خفيفة */
+  --input: oklch(0.18 0.01 60);
+  --ring: var(--gold);                        /* تحديد العناصر يصير ذهبي */
 
   --gradient-ivory: radial-gradient(ellipse at top, oklch(0.2 0.012 60) 0%, oklch(0.12 0.008 60) 100%);
   --shadow-soft: 0 1px 2px oklch(0 0 0 / 0.3), 0 8px 30px oklch(0 0 0 / 0.5);
