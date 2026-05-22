@@ -81,20 +81,18 @@ function ProjectPage() {
               </div>
             </motion.div>
 
-            {/* Cover visual */}
-            <div className={`mt-10 rounded-2xl border border-gold/30 bg-gradient-to-br ${p.accent} h-56 md:h-72 relative overflow-hidden shadow-luxury`}>
-              <div className="absolute inset-0 data-grid-bg opacity-20" />
-              <div className="absolute inset-0 flex items-end justify-center gap-2 p-10">
-                {[40, 65, 50, 85, 70, 55, 90, 75, 60, 80].map((h, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ height: 0 }}
-                    animate={{ height: `${h}%` }}
-                    transition={{ duration: 1, delay: 0.4 + i * 0.05, ease: "easeOut" }}
-                    className="w-3 md:w-5 rounded-sm bg-ivory/85"
-                  />
-                ))}
-              </div>
+            {/* Cover visual - actual project dashboard */}
+            <div className="mt-10 rounded-2xl border border-gold/30 bg-card overflow-hidden shadow-luxury">
+              {COVERS[p.slug] ? (
+                <img
+                  src={COVERS[p.slug]}
+                  alt={`${p.title} dashboard`}
+                  className="w-full h-auto object-contain"
+                  loading="eager"
+                />
+              ) : (
+                <div className={`bg-gradient-to-br ${p.accent} h-56 md:h-72`} />
+              )}
             </div>
           </div>
         </div>
