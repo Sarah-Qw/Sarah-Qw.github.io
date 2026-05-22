@@ -65,17 +65,32 @@ export function Contact() {
             transition={{ duration: 0.7, delay: 0.15 }}
             className="lg:col-span-7"
           >
-            <div className="rounded-2xl border border-gold/30 bg-card/60 backdrop-blur-xl overflow-hidden shadow-luxury metallic-border">
-              <div className="flex items-center gap-2 px-4 py-2.5 border-b border-border/60 bg-background/40">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]" />
-                <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]" />
-                <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
-                <span className="ml-3 text-[10px] font-mono tracking-wider text-muted-foreground">
-                  contact_query.sql
-                </span>
-                <span className="ml-auto text-[9px] tracking-[0.25em] uppercase text-gold/80">
-                  Editor
-                </span>
+            <div className="rounded-xl border border-border/80 bg-card/70 backdrop-blur-xl overflow-hidden shadow-luxury">
+              {/* IDE title bar */}
+              <div className="flex items-center justify-between bg-background/70 border-b border-border/70 pl-1 pr-3 pt-1">
+                <div className="flex items-end gap-1">
+                  {/* Active file tab */}
+                  <div className="relative flex items-center gap-2 px-3.5 py-2 rounded-t-md bg-card border-t border-x border-border text-[11px] font-mono text-foreground">
+                    <span className="h-3.5 w-3.5 inline-flex items-center justify-center rounded-sm bg-gold/15 text-gold text-[8px] font-semibold tracking-tighter">
+                      SQL
+                    </span>
+                    <span>contact_query.sql</span>
+                    <span className="ml-1 h-1.5 w-1.5 rounded-full bg-gold" aria-hidden />
+                    {/* Active tab underline */}
+                    <span className="absolute inset-x-0 -bottom-px h-px bg-card" />
+                  </div>
+                  {/* Inactive ghost tab for IDE feel */}
+                  <div className="hidden sm:flex items-center gap-2 px-3 py-2 text-[10px] font-mono text-muted-foreground/60">
+                    <span>schema.sql</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 text-[9px] font-mono tracking-wider text-muted-foreground uppercase">
+                  <span>UTF-8</span>
+                  <span className="h-3 w-px bg-border" />
+                  <span>SQL</span>
+                  <span className="h-3 w-px bg-border" />
+                  <span className="text-gold">● Connected</span>
+                </div>
               </div>
 
               <form
