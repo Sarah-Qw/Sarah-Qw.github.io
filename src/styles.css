@@ -49,10 +49,10 @@
   --radius: 0.5rem;
 
   /* Luxury palette - light */
-  --ivory: oklch(0.972 0.008 80);              /* #F8F6F2 */
-  --stone-soft: oklch(0.86 0.012 75);          /* #D8D2C8 */
-  --cherry: #78292c;                            /* exact burgundy spec */
-  --cherry-soft: oklch(0.55 0.13 24);          /* lighter shimmer accent for name */
+  --ivory: oklch(0.972 0.008 80);             /* #F8F6F2 */
+  --stone-soft: oklch(0.86 0.012 75);         /* #D8D2C8 */
+  --cherry: #78292c;                          /* exact burgundy spec */
+  --cherry-soft: oklch(0.55 0.13 24);         /* lighter shimmer accent for name */
   --plum: oklch(0.43 0.04 300);
   --graphite: oklch(0.27 0.005 280);
   --gold: oklch(0.72 0.08 80);
@@ -64,8 +64,11 @@
   --card-foreground: var(--graphite);
   --popover: var(--card);
   --popover-foreground: var(--graphite);
+  
+  /* Primary buttons in Light Mode (Burgundy with Ivory text) */
   --primary: var(--cherry);
   --primary-foreground: var(--ivory);
+  
   --secondary: var(--stone-soft);
   --secondary-foreground: var(--graphite);
   --muted: oklch(0.92 0.008 80);
@@ -89,7 +92,7 @@
 .dark {
   --ivory: oklch(0.16 0.008 60);
   --stone-soft: oklch(0.28 0.01 60);
-  --cherry: #78292c;                            /* same burgundy in dark mode */
+  --cherry: #78292c;                          /* same burgundy in dark mode */
   --cherry-soft: oklch(0.68 0.14 25);
   --plum: oklch(0.58 0.06 300);
   --graphite: oklch(0.94 0.008 80);
@@ -102,8 +105,11 @@
   --card-foreground: oklch(0.94 0.008 80);
   --popover: var(--card);
   --popover-foreground: oklch(0.94 0.008 80);
-  --primary: oklch(0.78 0.1 82);
-  --primary-foreground: oklch(0.14 0.008 60);
+  
+  /* Primary buttons in Dark Mode (Burgundy with Bright White/Ivory text) */
+  --primary: var(--cherry);
+  --primary-foreground: oklch(0.98 0.008 80); 
+  
   --secondary: oklch(0.24 0.012 60);
   --secondary-foreground: oklch(0.94 0.008 80);
   --muted: oklch(0.22 0.01 60);
@@ -230,7 +236,8 @@
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
   }
-  /* Golden shimmer — bright, luxurious, runs across full name in both modes */
+  
+  /* Golden shimmer — bright, luxurious, runs across full name in LIGHT mode */
   .shimmer-text {
     background: linear-gradient(
       100deg,
@@ -248,15 +255,19 @@
     color: transparent;
     animation: shimmer 5s linear infinite;
   }
+  
+  /* UPDATED: Dark Mode Shimmer - Now includes Burgundy for unified identity! */
   .dark .shimmer-text {
     background: linear-gradient(
       100deg,
       #ffffff 0%,
-      #ffffff 35%,
+      #ffffff 20%,
+      #78292c 35%, 
       #f1c84b 45%,
       #fff6c8 50%,
       #f1c84b 55%,
-      #ffffff 65%,
+      #78292c 65%,
+      #ffffff 80%,
       #ffffff 100%
     );
     background-size: 250% 100%;
