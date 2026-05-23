@@ -5,9 +5,12 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* ── Editorial serif for headings — cinematic, luxurious ── */
   --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  /* ── Modern clean sans for body text ── */
   --font-sans: "Inter", system-ui, sans-serif;
-  --font-numeric: "Cormorant Garamond", "Fraunces", Georgia, serif;
+  /* Outfit — clean geometric sans for ALL numeric displays */
+  --font-numeric: "Outfit", sans-serif;
   --font-arabic: "Noto Naskh Arabic", "Amiri", serif;
 
   --radius-sm: calc(var(--radius) - 4px);
@@ -39,6 +42,7 @@
   --color-ivory: var(--ivory);
   --color-stone-soft: var(--stone-soft);
   --color-cherry: var(--cherry);
+  --color-cherry-soft: var(--cherry-soft);
   --color-plum: var(--plum);
   --color-graphite: var(--graphite);
   --color-gold: var(--gold);
@@ -48,11 +52,11 @@
 :root {
   --radius: 0.5rem;
 
-  /* Luxury palette - light */
-  --ivory: oklch(0.972 0.008 80);              /* #F8F6F2 */
-  --stone-soft: oklch(0.86 0.012 75);          /* #D8D2C8 */
-  --cherry: #78292c;                            /* exact burgundy spec */
-  --cherry-soft: oklch(0.55 0.13 24);          /* lighter shimmer accent for name */
+  /* Luxury palette — light */
+  --ivory: oklch(0.972 0.008 80);             /* #F8F6F2 */
+  --stone-soft: oklch(0.86 0.012 75);         /* #D8D2C8 */
+  --cherry: #78292c;                           /* exact burgundy spec */
+  --cherry-soft: oklch(0.55 0.13 24);         /* slightly lighter for accents */
   --plum: oklch(0.43 0.04 300);
   --graphite: oklch(0.27 0.005 280);
   --gold: oklch(0.72 0.08 80);
@@ -89,7 +93,12 @@
 .dark {
   --ivory: oklch(0.16 0.008 60);
   --stone-soft: oklch(0.28 0.01 60);
-  --cherry: #78292c;                            /* same burgundy in dark mode */
+  --cherry: #78292c;
+  /*
+    cherry-soft in dark mode is a VIBRANT, LEGIBLE burgundy-rose.
+    L=0.68 means it's bright enough to read on the dark background.
+    Used for: active nav, metric numbers, role badge, section nums.
+  */
   --cherry-soft: oklch(0.68 0.14 25);
   --plum: oklch(0.58 0.06 300);
   --graphite: oklch(0.94 0.008 80);
@@ -123,15 +132,16 @@
 }
 
 @layer base {
-  * {
-    border-color: var(--color-border);
-  }
+  * { border-color: var(--color-border); }
   html, body {
     background: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
+    /* Cinematic body: generous line-height, refined tracking */
+    line-height: 1.75;
+    letter-spacing: 0.005em;
   }
   body {
     background-image:
@@ -139,7 +149,6 @@
       radial-gradient(900px 500px at 110% 20%, color-mix(in oklab, var(--cherry) 10%, transparent), transparent 60%);
     background-attachment: fixed;
   }
-  /* Grain */
   body::before {
     content: "";
     position: fixed;
@@ -150,10 +159,33 @@
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.6'/></svg>");
   }
-  h1, h2, h3, h4 {
+  /* ── Editorial headings — elegant serif, cinematic hierarchy ── */
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.035em;
+    line-height: 0.92;
+  }
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+  }
+  h3 {
     font-family: var(--font-display);
     font-weight: 500;
     letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+  }
+  p {
+    line-height: 1.8;
   }
   ::selection {
     background: color-mix(in oklab, var(--gold) 50%, transparent);
@@ -162,23 +194,36 @@
 }
 
 @layer utilities {
-  .font-display { font-family: var(--font-display); }
-  .font-arabic { font-family: var(--font-arabic); }
-  .font-numeric { font-family: var(--font-numeric); font-feature-settings: "tnum","ss01"; letter-spacing: -0.01em; }
-  .text-gold { color: var(--gold); }
-  .text-cherry { color: var(--cherry); }
-  .text-cherry-soft { color: var(--cherry-soft); }
-  .bg-ivory { background-color: var(--ivory); }
-  .bg-cherry { background-color: var(--cherry); }
-  .bg-graphite { background-color: var(--graphite); }
-  .border-gold { border-color: var(--gold); }
+  .font-display  { font-family: var(--font-display); }
+  .font-arabic   { font-family: var(--font-arabic); }
+  .font-numeric {
+    font-family: 'Outfit', sans-serif !important;
+    font-variant-numeric: lining-nums tabular-nums !important;
+  }
+  /* Editorial uppercase label — luxurious sparse tracking */
+  .editorial-label {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+
+  .text-gold       { color: var(--gold); }
+  .text-cherry     { color: var(--cherry); }
+  .text-cherry-soft{ color: var(--cherry-soft); }
+  .bg-ivory        { background-color: var(--ivory); }
+  .bg-cherry       { background-color: var(--cherry); }
+  .bg-cherry-soft  { background-color: var(--cherry-soft); }
+  .bg-graphite     { background-color: var(--graphite); }
+  .border-gold     { border-color: var(--gold); }
   .gradient-luxury { background: var(--gradient-luxury); }
   .gradient-cherry { background: var(--gradient-cherry); }
-  .shadow-luxury { box-shadow: var(--shadow-luxury); }
-  .shadow-gold-glow { box-shadow: var(--shadow-gold); }
+  .shadow-luxury   { box-shadow: var(--shadow-luxury); }
+  .shadow-gold-glow{ box-shadow: var(--shadow-gold); }
 
   .btn-press { transition: transform .25s ease, box-shadow .25s ease, filter .25s ease; }
-  .btn-press:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 14px 40px -10px color-mix(in oklab, var(--cherry) 45%, transparent); filter: brightness(1.05); }
+  .btn-press:hover  { transform: translateY(-2px) scale(1.02); box-shadow: 0 14px 40px -10px color-mix(in oklab, var(--cherry) 45%, transparent); filter: brightness(1.05); }
   .btn-press:active { transform: translateY(0) scale(0.98); }
 
   .glass {
@@ -188,9 +233,7 @@
     border: 1px solid color-mix(in oklab, var(--gold) 22%, transparent);
   }
 
-  .metallic-border {
-    position: relative;
-  }
+  .metallic-border { position: relative; }
   .metallic-border::before {
     content: "";
     position: absolute;
@@ -209,7 +252,6 @@
   }
 
   .text-balance { text-wrap: balance; }
-
   .hide-cursor, .hide-cursor * { cursor: none !important; }
 
   .reveal-mask {
@@ -226,50 +268,62 @@
             mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
   }
 
+  /* ─────────────────────────────────────────────────────────────────
+     Shimmer — ultra-refined:
+     • Band width: only 6 percentage-points (47→53%) — hairline sweep
+     • Duration: 12 s ease-in-out — unhurried, almost imperceptible
+     • Highlight colours are muted (not pure white) so it never glares
+     • Feels like a faint beam of light crossing the name, then resting
+  ───────────────────────────────────────────────────────────────── */
   @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
+    0%   { background-position: 210% center; }
+    100% { background-position: -210% center; }
   }
-  /* Golden shimmer — bright, luxurious, runs across full name in both modes */
+
   .shimmer-text {
     background: linear-gradient(
       100deg,
       #78292c 0%,
-      #78292c 35%,
-      #d4af37 45%,
-      #fff1c2 50%,
-      #d4af37 55%,
-      #78292c 65%,
+      #78292c 46%,
+      #b8882a 48%,      /* muted gold — no harsh flash */
+      #ede4c8 50%,      /* warm cream highlight, not pure white */
+      #b8882a 52%,
+      #78292c 54%,
       #78292c 100%
     );
-    background-size: 250% 100%;
+    background-size: 320% 100%;
     -webkit-background-clip: text;
             background-clip: text;
     color: transparent;
-    animation: shimmer 5s linear infinite;
+    animation: shimmer 12s ease-in-out infinite;
   }
+
+  /* Dark mode: near-white base, muted warm gold sweep */
   .dark .shimmer-text {
     background: linear-gradient(
       100deg,
-      #ffffff 0%,
-      #ffffff 35%,
-      #f1c84b 45%,
-      #fff6c8 50%,
-      #f1c84b 55%,
-      #ffffff 65%,
-      #ffffff 100%
+      oklch(0.88 0.006 80) 0%,
+      oklch(0.88 0.006 80) 46%,
+      #c8a030 48%,      /* softer gold, not blinding */
+      #f0e8d4 50%,      /* warm off-white */
+      #c8a030 52%,
+      oklch(0.88 0.006 80) 54%,
+      oklch(0.88 0.006 80) 100%
     );
-    background-size: 250% 100%;
+    background-size: 320% 100%;
     -webkit-background-clip: text;
             background-clip: text;
     color: transparent;
   }
 
-  /* Soft, elegant card hover - matches the muted social-link feel */
+  /* ─────────────────────────────────────────────────────────────────
+     Unified card hover — gentle lift + soft shadow
+  ───────────────────────────────────────────────── */
   .card-soft {
     transition: background-color .35s ease, box-shadow .4s ease, border-color .35s ease, transform .35s ease;
   }
   .card-soft:hover {
+    transform: translateY(-3px);
     background-color: color-mix(in oklab, var(--stone-soft) 14%, var(--card));
     box-shadow:
       0 1px 0 color-mix(in oklab, var(--gold) 18%, transparent) inset,
@@ -277,17 +331,45 @@
       0 6px 20px -10px color-mix(in oklab, var(--graphite) 20%, transparent);
     border-color: color-mix(in oklab, var(--gold) 35%, transparent);
   }
+  /* Dark mode: warm burgundy undertone on hover */
   .dark .card-soft:hover {
-    background-color: color-mix(in oklab, var(--stone-soft) 18%, var(--card));
+    background-color: color-mix(in oklab, #78292c 9%, var(--card));
     box-shadow:
       0 1px 0 color-mix(in oklab, var(--gold) 22%, transparent) inset,
-      0 24px 60px -24px rgba(0,0,0,.55);
+      0 24px 60px -24px rgba(0,0,0,.55),
+      0 0 32px -14px color-mix(in oklab, #78292c 28%, transparent);
+    border-color: color-mix(in oklab, #78292c 22%, var(--border));
   }
-  .card-soft .icon-wrap {
-    transition: background-color .35s ease;
-  }
+  .card-soft .icon-wrap { transition: background-color .35s ease; }
   .card-soft:hover .icon-wrap {
     background-color: color-mix(in oklab, var(--stone-soft) 55%, transparent);
+  }
+
+  /* ─────────────────────────────────────────────────────────────────
+     Contact SQL IDE form — dark mode Burgundy accent
+  ───────────────────────────────────────────────── */
+  .sql-ide-frame { /* light mode: no change */ }
+  .dark .sql-ide-frame {
+    border-color: color-mix(in oklab, #78292c 28%, var(--border));
+    background-color: color-mix(in oklab, #78292c 5%, oklch(0.18 0.01 60 / 0.7));
+  }
+
+  /* ─────────────────────────────────────────────────────────────────
+     Social icon links (footer + contact left column)
+     Hover: gold filled circle background, icon switches to dark
+     for contrast — identical lift to card-soft
+  ───────────────────────────────────────────────── */
+  .social-icon-btn {
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease,
+                color .3s ease, background-color .3s ease;
+  }
+  .social-icon-btn:hover {
+    transform: translateY(-3px);
+    background-color: var(--color-gold);
+    border-color: var(--color-gold);
+    /* icon goes dark so it's legible on gold background */
+    color: oklch(0.18 0.01 60);
+    box-shadow: 0 6px 22px -8px color-mix(in oklab, var(--gold) 55%, transparent);
   }
 
   @keyframes float-y {
@@ -297,10 +379,10 @@
   .float-y { animation: float-y 6s ease-in-out infinite; }
 
   @keyframes pulse-ring {
-    0% { transform: scale(0.9); opacity: 0.8; }
+    0%   { transform: scale(0.9); opacity: 0.8; }
     100% { transform: scale(1.6); opacity: 0; }
   }
 }
 
 [dir="rtl"] .font-display { font-family: var(--font-arabic); }
-[dir="rtl"] body { font-family: var(--font-arabic); }
+[dir="rtl"] body          { font-family: var(--font-arabic); }

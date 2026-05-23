@@ -9,9 +9,36 @@ interface AppCtx {
 
 const Ctx = createContext<AppCtx | null>(null);
 
-export function AppProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light");
+/**
+ * Reads the saved theme from localStorage (client-only, SSR-safe).
+ * Falls back to "light" if nothing is stored.
+ */
+function readStoredTheme(): Theme {
+  if (typeof window === "undefined") return "light";
+  try {
+    const stored = localStorage.getItem("theme");
+    if (stored === "dark" || stored === "light") return stored;
+  } catch {
+    // localStorage blocked (private browsing, etc.)
+  }
+  return "light";
+}
 
+export function AppProvider({ children }: { children: ReactNode }) {
+  // Lazy initialiser — reads localStorage on first render so the correct
+  // theme is available synchronously before the first paint.
+  const [theme, setThemeState] = useState<Theme>(readStoredTheme);
+
+  const setTheme = (t: Theme) => {
+    setThemeState(t);
+    try {
+      localStorage.setItem("theme", t);
+    } catch {
+      // ignore write failures
+    }
+  };
+
+  // Keep the <html> class in sync whenever theme changes.
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
   }, [theme]);

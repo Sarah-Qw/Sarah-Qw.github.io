@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { AppProvider } from "@/components/AppProvider";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
@@ -49,19 +48,18 @@ function Index() {
   }, []);
 
   return (
-    <AppProvider>
-      <div className="relative">
-        <Navbar />
-        <main className="relative z-10">
-          <Hero />
-          <About />
-          <Skills />
-          <Projects />
-          <Certificates />
-          <Contact />
-        </main>
-        <BackToTop />
-      </div>
-    </AppProvider>
+    // AppProvider now lives in __root.tsx — no wrapper needed here.
+    <div className="relative">
+      <Navbar />
+      <main className="relative z-10">
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Certificates />
+        <Contact />
+      </main>
+      <BackToTop />
+    </div>
   );
 }

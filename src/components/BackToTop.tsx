@@ -22,7 +22,7 @@ export function BackToTop() {
           transition={{ duration: 0.3 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           aria-label="Back to top"
-          className="fixed bottom-6 right-6 z-50 h-12 w-12 rounded-full bg-cherry text-primary-foreground shadow-luxury btn-press inline-flex items-center justify-center border border-gold/40 group"
+          className="fixed bottom-6 right-6 z-50 h-12 w-12 rounded-full bg-cherry text-white shadow-luxury btn-press inline-flex items-center justify-center border border-gold/40 group"
         >
           <ArrowUp size={18} className="group-hover:-translate-y-0.5 transition-transform" />
           <span className="absolute inset-0 rounded-full bg-gradient-to-r from-gold/0 via-gold/30 to-gold/0 opacity-0 group-hover:opacity-100 transition-opacity" />

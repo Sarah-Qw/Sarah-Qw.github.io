@@ -97,7 +97,7 @@ export function Projects() {
                     >
                       <Github size={14} /> GitHub
                     </a>
-                    <span className="h-9 w-9 rounded-full border border-gold/50 inline-flex items-center justify-center transition-colors">
+                    <span className="h-9 w-9 rounded-full border border-gold/50 inline-flex items-center justify-center group-hover:bg-gold/15 group-hover:border-gold transition-all duration-300">
                       <ArrowUpRight size={14} />
                     </span>
                   </div>

@@ -1,7 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowLeft, Github } from "lucide-react";
-import { AppProvider } from "@/components/AppProvider";
 import { Navbar } from "@/components/Navbar";
 import { PROJECTS } from "@/data/projects";
 import pizzaImg from "@/assets/project-pizza.png";
@@ -44,7 +43,8 @@ function ProjectPage() {
   const { project: p } = Route.useLoaderData() as { project: typeof PROJECTS[string] };
 
   return (
-    <AppProvider>
+    // AppProvider now lives in __root.tsx — no wrapper needed here.
+    <>
       <Navbar />
       <main className="relative pt-32 pb-24">
         {/* Hero */}
@@ -81,7 +81,7 @@ function ProjectPage() {
               </div>
             </motion.div>
 
-            {/* Cover visual - actual project dashboard */}
+            {/* Cover visual */}
             <div className="mt-10 rounded-2xl border border-gold/30 bg-card overflow-hidden shadow-luxury">
               {COVERS[p.slug] ? (
                 <img
@@ -130,7 +130,7 @@ function ProjectPage() {
                   key={k.label}
                   className="rounded-xl border border-gold/30 bg-card/50 p-4 text-center"
                 >
-                  <div className="font-display text-xl md:text-2xl text-gold leading-tight">
+                  <div className="font-numeric text-xl md:text-2xl text-gold font-semibold leading-tight">
                     {k.value}
                   </div>
                   <div className="mt-1 text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
@@ -166,11 +166,12 @@ function ProjectPage() {
           </Section>
 
           <Section num="7" title="Repository">
+            {/* bg-cherry + text-white — always Burgundy bg regardless of mode */}
             <a
               href={p.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 rounded-full px-6 py-3 bg-cherry text-primary-foreground text-sm tracking-wider shadow-luxury hover:shadow-gold-glow transition-shadow"
+              className="btn-press inline-flex items-center gap-2.5 rounded-full px-6 py-3 bg-cherry text-white text-sm tracking-wider shadow-luxury hover:shadow-gold-glow transition-shadow"
             >
               <Github size={16} />
               View Full Project on GitHub
@@ -178,7 +179,7 @@ function ProjectPage() {
           </Section>
         </div>
       </main>
-    </AppProvider>
+    </>
   );
 }
 
@@ -199,7 +200,7 @@ function Section({
       transition={{ duration: 0.6 }}
     >
       <div className="flex items-center gap-3 mb-5">
-        <span className="font-display text-2xl text-gold/80">{num}</span>
+        <span className="font-numeric text-2xl font-semibold text-cherry dark:text-cherry-soft">{num}</span>
         <span className="h-px w-8 bg-gold/50" />
         <h2 className="font-display text-2xl md:text-3xl">{title}</h2>
       </div>

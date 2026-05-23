@@ -8,6 +8,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 
+import { AppProvider } from "../components/AppProvider";
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
@@ -86,6 +87,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/c0e5270c-6d9d-45cb-9d23-d336ad2566e9/id-preview-1a133e14--8bf68009-4865-4689-b467-99c8671679bd.lovable.app-1779366849105.png" },
     ],
     links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap",
+      },
       {
         rel: "stylesheet",
         href: appCss,
@@ -103,6 +110,16 @@ function RootShell({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        {/*
+          Anti-flash script: runs synchronously before React hydrates.
+          Reads localStorage and applies the .dark class immediately so
+          there is zero flash of wrong theme on page load/navigation.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.classList.add('dark')}}catch(e){}})();`,
+          }}
+        />
       </head>
       <body>
         {children}
@@ -112,12 +129,19 @@ function RootShell({ children }: { children: React.ReactNode }) {
   );
 }
 
+/**
+ * AppProvider lives here — at the root — so it is NEVER re-mounted when
+ * navigating between routes.  Theme state (and localStorage) persists
+ * seamlessly across the home page ↔ project detail page transitions.
+ */
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <AppProvider>
+        <Outlet />
+      </AppProvider>
     </QueryClientProvider>
   );
 }

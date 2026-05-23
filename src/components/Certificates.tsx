@@ -59,7 +59,7 @@ export function Certificates() {
               >
                 <Tag
                   {...props}
-                  className="group flex flex-col h-full rounded-2xl border border-border bg-card/40 overflow-hidden hover:border-gold/60 hover:shadow-luxury transition-all"
+                  className="card-soft group flex flex-col h-full rounded-2xl border border-border bg-card/40 overflow-hidden"
                 >
                   <div className="relative h-44 bg-gradient-to-br from-cherry/15 via-gold/10 to-background flex items-center justify-center overflow-hidden">
                     <div className="absolute inset-0 data-grid-bg opacity-20" />

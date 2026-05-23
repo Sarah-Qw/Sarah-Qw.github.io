@@ -4,19 +4,19 @@ import { Link } from "@tanstack/react-router";
 import { useApp } from "./AppProvider";
 
 const NAV = [
-  { id: "home", label: "Home" },
-  { id: "about", label: "About" },
-  { id: "skills", label: "Toolkit" },
-  { id: "projects", label: "Projects" },
+  { id: "home",         label: "Home"         },
+  { id: "about",        label: "About"        },
+  { id: "skills",       label: "Toolkit"      },
+  { id: "projects",     label: "Projects"     },
   { id: "certificates", label: "Certificates" },
-  { id: "contact", label: "Contact" },
+  { id: "contact",      label: "Contact"      },
 ];
 
 export function Navbar() {
   const { theme, setTheme } = useApp();
   const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [active, setActive] = useState<string>("home");
+  const [open, setOpen]         = useState(false);
+  const [active, setActive]     = useState<string>("home");
 
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 24);
@@ -25,7 +25,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", on);
   }, []);
 
-  // Track active section via IntersectionObserver
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (window.location.pathname !== "/") return;
@@ -33,7 +32,6 @@ export function Navbar() {
       (el): el is HTMLElement => !!el,
     );
     if (!sections.length) return;
-
     const io = new IntersectionObserver(
       (entries) => {
         const visible = entries
@@ -64,6 +62,7 @@ export function Navbar() {
           scrolled ? "glass metallic-border rounded-full mx-3 md:mx-8 px-4 md:px-6 py-2.5" : ""
         }`}
       >
+        {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5 group shrink-0">
           <span className="relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-gold/60 bg-card/40 backdrop-blur metallic-border group-hover:border-gold transition-colors">
             <span className="font-display text-base text-gold font-semibold leading-none">S</span>
@@ -73,6 +72,13 @@ export function Navbar() {
           </span>
         </Link>
 
+        {/*
+          Desktop nav behaviour:
+            • Hover  → underline sweeps in (0 → 100%) · text stays foreground colour
+            • Active → text turns burgundy · underline stays full-width
+          Light mode:  text-cherry     (#78292c, 10:1 contrast on ivory)
+          Dark  mode:  text-cherry-soft (oklch 0.68, 7:1 contrast on dark bg)
+        */}
         <nav className="hidden lg:flex items-center gap-7 text-[11px] tracking-[0.18em] uppercase">
           {NAV.map((n) => {
             const isActive = active === n.id;
@@ -80,19 +86,22 @@ export function Navbar() {
               <button
                 key={n.id}
                 onClick={() => go(n.id)}
-                className="relative transition-colors after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-px after:transition-all hover:after:w-full"
-                style={{
-                  color: isActive ? "#78292c" : undefined,
-                }}
+                className={`relative group/nav transition-colors duration-200 ${
+                  isActive
+                    ? "text-cherry dark:text-cherry-soft"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
               >
+                {n.label}
+                {/*
+                  Underline: full-width when active.
+                  On hover (when not active): sweeps in via group-hover/nav.
+                  Uses same burgundy as active text for consistency.
+                */}
                 <span
-                  className={isActive ? "" : "text-muted-foreground hover:text-foreground"}
-                >
-                  {n.label}
-                </span>
-                <span
-                  className="absolute -bottom-1 left-0 h-px bg-[#78292c] transition-all"
-                  style={{ width: isActive ? "100%" : 0 }}
+                  className={`absolute -bottom-1 left-0 h-px bg-cherry dark:bg-cherry-soft transition-all duration-300 ${
+                    isActive ? "w-full" : "w-0 group-hover/nav:w-full"
+                  }`}
                 />
               </button>
             );
@@ -100,16 +109,20 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
+          {/* Resume — always Burgundy bg, white text, both modes */}
           <a
             href="/SarahQuwaidi_CV.pdf"
-            download
-            className="hidden sm:inline-flex items-center gap-2 rounded-full px-4 py-2 text-[10px] md:text-[11px] tracking-[0.2em] uppercase text-white shadow-luxury btn-press"
-            style={{ backgroundColor: "#78292c" }}
+            download="SarahQuwaidi_CV.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center gap-2 rounded-full px-4 py-2 text-[10px] md:text-[11px] tracking-[0.2em] uppercase bg-cherry text-white shadow-luxury btn-press"
             aria-label="Download resume"
           >
             <Download size={13} />
             Resume
           </a>
+
+          {/* Theme toggle */}
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             aria-label="Toggle theme"
@@ -117,6 +130,8 @@ export function Navbar() {
           >
             {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
           </button>
+
+          {/* Mobile hamburger */}
           <button
             onClick={() => setOpen(!open)}
             className="lg:hidden h-9 w-9 inline-flex items-center justify-center rounded-full border border-border/60 bg-card/40 backdrop-blur"
@@ -127,6 +142,7 @@ export function Navbar() {
         </div>
       </div>
 
+      {/* Mobile drawer */}
       {open && (
         <div className="lg:hidden mx-4 mt-3 glass metallic-border rounded-2xl p-4 flex flex-col gap-1">
           {NAV.map((n) => {
@@ -135,23 +151,23 @@ export function Navbar() {
               <button
                 key={n.id}
                 onClick={() => go(n.id)}
-                className="text-left px-3 py-2.5 rounded-lg text-sm tracking-wide transition-colors"
-                style={{
-                  color: isActive ? "#78292c" : undefined,
-                  backgroundColor: isActive
-                    ? "color-mix(in oklab, #78292c 8%, transparent)"
-                    : undefined,
-                }}
+                className={`text-left px-3 py-2.5 rounded-lg text-sm tracking-wide transition-colors ${
+                  isActive
+                    ? "text-cherry dark:text-cherry-soft bg-cherry/8 dark:bg-cherry-soft/10"
+                    : "text-foreground hover:bg-muted/60"
+                }`}
               >
                 {n.label}
               </button>
             );
           })}
+
           <a
             href="/SarahQuwaidi_CV.pdf"
-            download
-            className="mt-2 inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2.5 text-xs tracking-[0.2em] uppercase text-white"
-            style={{ backgroundColor: "#78292c" }}
+            download="SarahQuwaidi_CV.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2.5 text-xs tracking-[0.2em] uppercase bg-cherry text-white"
           >
             <Download size={13} />
             Resume

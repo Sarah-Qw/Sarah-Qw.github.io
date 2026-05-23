@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowDown, Mail, LayoutGrid } from "lucide-react";
-import { EtlVisualization } from "./EtlVisualization";
+import { ClayDataIllustration } from "./ClayDataIllustration";
 
 export function Hero() {
   return (
@@ -9,6 +9,8 @@ export function Hero() {
       <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[900px] rounded-full bg-[radial-gradient(circle,color-mix(in_oklab,var(--gold)_16%,transparent),transparent_60%)]" />
 
       <div className="relative max-w-7xl mx-auto px-5 md:px-10 grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+
+        {/* ── Left: text content ──────────────────────────── */}
         <div className="lg:col-span-7 z-10">
           <motion.p
             initial={{ opacity: 0 }}
@@ -46,7 +48,12 @@ export function Hero() {
           >
             <span className="inline-flex items-center gap-3 rounded-full border border-gold/50 bg-card/40 backdrop-blur-sm px-5 py-2 metallic-border">
               <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
-              <span className="font-display text-lg md:text-xl text-cherry dark:text-gold italic">
+              {/*
+                Role badge: burgundy in BOTH modes.
+                text-cherry    = #78292c on ivory      (light)  contrast 10:1 ✓
+                dark:text-cherry-soft = oklch(0.68 …) on dark   contrast  7:1 ✓
+              */}
+              <span className="font-display text-lg md:text-xl italic text-cherry dark:text-cherry-soft">
                 Junior Data Analyst
               </span>
             </span>
@@ -64,6 +71,7 @@ export function Hero() {
             Turning data into meaning, quiet patterns, loud insights, and the stories that live between the rows.
           </motion.p>
 
+          {/* ── Stats ─────────────────────────────────────── */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -71,12 +79,18 @@ export function Hero() {
             className="mt-8 grid grid-cols-3 gap-3 max-w-md"
           >
             {[
-              { n: "4+", l: "End-to-End Projects" },
-              { n: "1M+", l: "Records Processed" },
-              { n: "5", l: "Core Data Tools" },
+              { n: "4+",  l: "End-to-End Projects" },
+              { n: "1M+", l: "Records Processed"   },
+              { n: "5",   l: "Core Data Tools"      },
             ].map((s) => (
               <div key={s.l} className="glass metallic-border rounded-xl px-3 py-3 text-center">
-                <div className="font-numeric text-2xl md:text-3xl text-gold font-semibold">{s.n}</div>
+                {/*
+                  Metric numbers: burgundy in BOTH modes.
+                  font-numeric ensures Space Grotesk (consistent with section nums).
+                */}
+                <div className="font-numeric text-2xl md:text-3xl font-semibold text-cherry dark:text-cherry-soft">
+                  {s.n}
+                </div>
                 <div className="text-[9px] md:text-[10px] tracking-[0.18em] uppercase text-muted-foreground mt-0.5">
                   {s.l}
                 </div>
@@ -84,6 +98,7 @@ export function Hero() {
             ))}
           </motion.div>
 
+          {/* ── CTAs ──────────────────────────────────────── */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -92,7 +107,7 @@ export function Hero() {
           >
             <button
               onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-              className="btn-press group relative overflow-hidden rounded-full px-6 py-3 bg-cherry text-primary-foreground text-xs md:text-sm tracking-[0.15em] uppercase shadow-luxury inline-flex items-center gap-2"
+              className="btn-press group relative overflow-hidden rounded-full px-6 py-3 bg-cherry text-white text-xs md:text-sm tracking-[0.15em] uppercase shadow-luxury inline-flex items-center gap-2"
             >
               <Mail size={14} />
               <span className="relative z-10">Get in Touch</span>
@@ -108,12 +123,13 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Interactive ETL data visualization */}
-        <div className="lg:col-span-5 relative w-full">
-          <EtlVisualization />
+        {/* ── Right: claymorphism illustration ─────────────── */}
+        <div className="lg:col-span-5 relative w-full flex justify-center">
+          <ClayDataIllustration />
         </div>
       </div>
 
+      {/* Scroll hint */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -126,4 +142,3 @@ export function Hero() {
     </section>
   );
 }
-

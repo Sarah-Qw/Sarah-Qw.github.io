@@ -4,10 +4,10 @@ import { Mail, Github, Linkedin, Twitter } from "lucide-react";
 import { SectionHeader } from "./SectionLabel";
 
 const links = [
-  { icon: Mail, label: "sarah.quwaidi1@gmail.com", href: "mailto:sarah.quwaidi1@gmail.com" },
-  { icon: Linkedin, label: "linkedin.com/in/sarah-quwaidi", href: "https://www.linkedin.com/in/sarah-quwaidi" },
-  { icon: Github, label: "github.com/Sarah-Qw", href: "https://github.com/Sarah-Qw" },
-  { icon: Twitter, label: "@xmisrx on Twitter", href: "https://x.com/xmisrx" },
+  { icon: Mail,     label: "sarah.quwaidi1@gmail.com",          href: "mailto:sarah.quwaidi1@gmail.com" },
+  { icon: Linkedin, label: "linkedin.com/in/sarah-quwaidi",      href: "https://www.linkedin.com/in/sarah-quwaidi" },
+  { icon: Github,   label: "github.com/Sarah-Qw",               href: "https://github.com/Sarah-Qw" },
+  { icon: Twitter,  label: "@xmisrx on Twitter",                href: "https://x.com/xmisrx" },
 ];
 
 export function Contact() {
@@ -28,6 +28,7 @@ export function Contact() {
         />
 
         <div className="grid lg:grid-cols-12 gap-8">
+          {/* ── Left: contact links ───────────────────────── */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -39,6 +40,7 @@ export function Contact() {
             <p className="text-foreground/75 leading-relaxed">
               I'm open to freelance projects, full-time opportunities, and collaborative data challenges. If your data has a question, I want to help answer it.
             </p>
+
             <div className="space-y-2">
               {links.map((l) => (
                 <a
@@ -46,18 +48,18 @@ export function Contact() {
                   href={l.href}
                   target={l.href.startsWith("http") ? "_blank" : undefined}
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-3 rounded-xl border border-border bg-card/40 px-4 py-3 hover:border-gold/60 hover:bg-card/60 transition-all"
+                  className="group flex items-center gap-3 rounded-xl border border-border bg-card/40 px-4 py-3 hover:border-gold/60 hover:bg-card/60 hover:-translate-y-0.5 transition-all duration-300"
                 >
-                  <span className="h-9 w-9 rounded-full border border-gold/40 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-cherry transition-colors shrink-0">
+                  <span className="h-9 w-9 rounded-full border border-gold/40 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-foreground transition-colors shrink-0">
                     <l.icon size={15} />
                   </span>
-                  <span className="text-sm truncate">{l.label}</span>
+                  <span className="text-sm truncate text-foreground/80">{l.label}</span>
                 </a>
               ))}
             </div>
           </motion.div>
 
-          {/* SQL-style contact form — same fiber as the Toolkit cards */}
+          {/* ── Right: SQL-style contact form ──────────────── */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -65,7 +67,7 @@ export function Contact() {
             transition={{ duration: 0.7, delay: 0.15 }}
             className="lg:col-span-7"
           >
-            <div className="rounded-xl border border-border/80 bg-card/70 backdrop-blur-xl overflow-hidden shadow-luxury">
+            <div className="sql-ide-frame rounded-xl border border-border/80 bg-card/70 backdrop-blur-xl overflow-hidden shadow-luxury">
               {/* IDE title bar */}
               <div className="flex items-center justify-between bg-background/70 border-b border-border/70 pl-1 pr-3 pt-1">
                 <div className="flex items-end gap-1">
@@ -79,7 +81,7 @@ export function Contact() {
                     {/* Active tab underline */}
                     <span className="absolute inset-x-0 -bottom-px h-px bg-card" />
                   </div>
-                  {/* Inactive ghost tab for IDE feel */}
+                  {/* Ghost inactive tab */}
                   <div className="hidden sm:flex items-center gap-2 px-3 py-2 text-[10px] font-mono text-muted-foreground/60">
                     <span>schema.sql</span>
                   </div>
@@ -101,7 +103,6 @@ export function Contact() {
                 }}
                 className="p-5 md:p-6 font-mono text-[13px] leading-relaxed"
               >
-                {/* Gutter + lines layout */}
                 <div className="grid grid-cols-[2rem_1fr] gap-x-3 gap-y-1">
                   <Ln n={1}>
                     <span className="text-muted-foreground">{"-- Fill in the parameters to initiate contact"}</span>
@@ -111,7 +112,8 @@ export function Contact() {
                   <Ln n={3}>
                     <span className="text-gold">INSERT INTO</span>{" "}
                     <span className="text-foreground">messages</span>{" "}
-                    (<span className="text-cherry-soft dark:text-cherry">sender_name</span>)
+                    {/* cherry-soft in both modes: light = muted rose, dark = readable coral */}
+                    (<span className="text-cherry-soft">sender_name</span>)
                   </Ln>
                   <Ln n={4}>
                     <SqlInput value={form.name} onChange={set("name")} placeholder="'Your Name'" />
@@ -119,7 +121,7 @@ export function Contact() {
 
                   <Ln n={5}>
                     <span className="text-gold">VALUES</span>{" "}
-                    (<span className="text-cherry-soft dark:text-cherry">email_address</span>)
+                    (<span className="text-cherry-soft">email_address</span>)
                   </Ln>
                   <Ln n={6}>
                     <SqlInput value={form.email} type="email" onChange={set("email")} placeholder="'your@email.com'" />
@@ -127,7 +129,7 @@ export function Contact() {
 
                   <Ln n={7}>
                     <span className="text-gold">SET</span>{" "}
-                    <span className="text-cherry-soft dark:text-cherry">subject</span> =
+                    <span className="text-cherry-soft">subject</span> =
                   </Ln>
                   <Ln n={8}>
                     <SqlInput value={form.subject} onChange={set("subject")} placeholder="'Subject of your message'" />
@@ -135,9 +137,10 @@ export function Contact() {
 
                   <Ln n={9}>
                     <span className="text-gold">WHERE</span>{" "}
-                    <span className="text-cherry-soft dark:text-cherry">message</span> =
+                    <span className="text-cherry-soft">message</span> =
                   </Ln>
                   <Ln n={10}>
+                    {/* rows={4} + max-h-28 keeps textarea compact — not excessively tall */}
                     <SqlTextarea value={form.message} onChange={set("message")} placeholder="'Write your message here...'" />
                   </Ln>
                 </div>
@@ -145,7 +148,7 @@ export function Contact() {
                 <div className="mt-6 flex justify-end">
                   <button
                     type="submit"
-                    className="btn-press group relative overflow-hidden rounded-full px-6 py-3 bg-cherry text-primary-foreground text-xs tracking-[0.2em] uppercase shadow-luxury inline-flex items-center gap-2"
+                    className="btn-press group relative overflow-hidden rounded-full px-6 py-3 bg-cherry text-white text-xs tracking-[0.2em] uppercase shadow-luxury inline-flex items-center gap-2"
                   >
                     <span className="relative z-10">
                       {sent ? "Query Executed ✓" : "Run Query →"}
@@ -170,9 +173,11 @@ export function Contact() {
           </motion.div>
         </div>
 
-        {/* Footer */}
+        {/* ── Footer ──────────────────────────────────────── */}
         <div className="mt-14 pt-6 border-t border-border flex flex-col items-center gap-4 text-[10px] tracking-[0.3em] uppercase text-muted-foreground">
           <span className="text-center">© 2026 Sarah Abdulmaleek Quwaidi · Data Analyst</span>
+
+          {/* Social icons — unified hover: lift + gold glow (matches card-soft) */}
           <div className="flex gap-3">
             {links.map((l) => (
               <a
@@ -180,7 +185,7 @@ export function Contact() {
                 href={l.href}
                 target={l.href.startsWith("http") ? "_blank" : undefined}
                 rel="noopener noreferrer"
-                className="h-9 w-9 rounded-full border border-border flex items-center justify-center hover:border-gold hover:text-gold transition-colors"
+                className="social-icon-btn h-9 w-9 rounded-full border border-border flex items-center justify-center"
                 aria-label={l.label}
               >
                 <l.icon size={14} />
@@ -192,6 +197,8 @@ export function Contact() {
     </section>
   );
 }
+
+/* ── Helper components ────────────────────────────────────────────── */
 
 function Ln({ n, children }: { n: number; children: React.ReactNode }) {
   return (
@@ -222,7 +229,7 @@ function SqlInput({
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      className="ml-4 flex-1 min-w-[200px] bg-transparent border-b border-dashed border-border focus:border-gold outline-none px-1 py-0.5 text-foreground placeholder:text-muted-foreground/60 transition-colors"
+      className="ml-4 flex-1 min-w-[160px] max-w-full bg-transparent border-b border-dashed border-border focus:border-gold outline-none px-1 py-0.5 text-foreground placeholder:text-muted-foreground/60 transition-colors"
     />
   );
 }
@@ -239,11 +246,11 @@ function SqlTextarea({
   return (
     <textarea
       required
-      rows={3}
+      rows={1}
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      className="ml-4 flex-1 min-w-[200px] bg-transparent border-b border-dashed border-border focus:border-gold outline-none px-1 py-0.5 text-foreground placeholder:text-muted-foreground/60 resize-none transition-colors"
+      className="ml-4 flex-1 min-w-[160px] max-w-full max-h-10 bg-transparent border-b border-dashed border-border focus:border-gold outline-none px-1 py-0.5 text-foreground placeholder:text-muted-foreground/60 resize-none transition-colors"
     />
   );
 }
