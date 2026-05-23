@@ -19,15 +19,6 @@ export const Route = createFileRoute("/projects/$slug")({
     if (!project) throw notFound();
     return { project };
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      { title: `${loaderData?.project.title ?? "Project"} - Sarah Q.` },
-      {
-        name: "description",
-        content: loaderData?.project.overview.slice(0, 155) ?? "",
-      },
-    ],
-  }),
   component: ProjectPage,
   notFoundComponent: () => (
     <div className="min-h-screen flex items-center justify-center">
